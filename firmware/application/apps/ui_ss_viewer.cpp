@@ -55,7 +55,7 @@ void ScreenshotViewer::paint(Painter& painter) {
     }
 
     // Screenshots from PNGWriter are all this size.
-    if ((file.size() != 232383 && screen_width == 240) || (screen_width == 320 && file.size() != 463743)) {
+    if (((int)file.size() != 232383 && screen_width == 240) || (screen_width == 320 && (int)file.size() != 463743)) {
         show_invalid();
         return;
     }

@@ -212,7 +212,7 @@ void TPMSCounterView::draw_list() {
             // Format: XXXXXXXX  FL  32  72F  -68  x5
             std::string id_str =
                 to_string_dec_uint(v.sensor_id);
-            while (id_str.size() < 8)
+            while ((int)id_str.size() < 8)
                 id_str = "0" + id_str;
 
             const std::string row =

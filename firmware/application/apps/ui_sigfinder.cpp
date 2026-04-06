@@ -206,7 +206,7 @@ void SigFinderView::update_display() {
     const int pct = rssi_to_percent(current_rssi_);
     std::string pstr = to_string_dec_uint(pct) + "%";
     // Right-align to 4 chars
-    while (pstr.size() < 4) pstr = " " + pstr;
+    while ((int)pstr.size() < 4) pstr = " " + pstr;
     text_percent_big.set(pstr);
 
     // Color the big number based on strength
@@ -465,7 +465,7 @@ std::string SigFinderView::make_capture_filename() const {
         name.pop_back();
 
     // Limit length to 20 chars (SD card filename safe)
-    if (name.size() > 20) name = name.substr(0, 20);
+    if ((int)name.size() > 20) name = name.substr(0, 20);
 
     return name;
 }

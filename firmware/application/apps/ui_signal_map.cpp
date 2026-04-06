@@ -121,7 +121,7 @@ void SignalMapView::init(uint64_t    freq_hz,
 
     // FIND — run trilateration
     button_trilat.on_select = [this](Button&) {
-        if (measurements_.size() >= 3) {
+        if ((int)measurements_.size() >= 3) {
             trilat_result_ = trilaterate();
             if (trilat_result_.valid) {
                 const std::string res =
@@ -422,7 +422,7 @@ void SignalMapView::draw_transmitter_estimate(
 // ─────────────────────────────────────────
 TrilatResult SignalMapView::trilaterate() const {
     TrilatResult result;
-    if (measurements_.size() < 3) return result;
+    if ((int)measurements_.size() < 3) return result;
 
     // Convert lat/lon to local X/Y in meters
     // Use first measurement as origin

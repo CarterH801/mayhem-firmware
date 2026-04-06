@@ -55,7 +55,7 @@ void ReconView::reload_restart_recon() {
     frequency_file_load();
     current_index = previous_index;
     handle_retune();
-    if (frequency_list.size() > 0) {
+    if ((int)frequency_list.size() > 0) {
         if (fwd) {
             button_dir.set_text("FW>");
         } else {
@@ -191,7 +191,7 @@ void ReconView::colorize_waits() {
 }
 
 bool ReconView::recon_save_freq(const fs::path& path, size_t freq_index, bool warn_if_exists) {
-    if (frequency_list.size() == 0 || !current_is_valid())
+    if ((int)frequency_list.size() == 0 || !current_is_valid())
         return false;
 
     FreqmanDB freq_db;
@@ -284,7 +284,7 @@ void ReconView::handle_retune() {
         last_freq = freq;
         receiver_model.set_target_frequency(freq);  // Retune
     }
-    if (frequency_list.size() > 0) {
+    if ((int)frequency_list.size() > 0) {
         if (last_entry.modulation != current_entry().modulation && is_valid(current_entry().modulation)) {
             last_entry.modulation = current_entry().modulation;
             field_mode.set_selected_index(current_entry().modulation);
@@ -417,7 +417,7 @@ ReconView::ReconView(NavigationView& nav)
     };
 
     text_cycle.on_select = [this, &nav](ButtonWithEncoder& button) {
-        if (frequency_list.size() > 0) {
+        if ((int)frequency_list.size() > 0) {
             auto new_view = nav_.push<FrequencyKeypadView>(current_index);
             new_view->on_changed = [this, &button](rf::Frequency f) {
                 // NB: This is using the freq keypad to select an index.
@@ -478,7 +478,7 @@ ReconView::ReconView(NavigationView& nav)
     };
 
     button_pause.on_select = [this](ButtonWithEncoder&) {
-        if (frequency_list.size() > 0) {
+        if ((int)frequency_list.size() > 0) {
             if (freq_lock > 0) {
                 if (fwd) {
                     on_stepper_delta(1);
@@ -521,7 +521,7 @@ ReconView::ReconView(NavigationView& nav)
 
     // TODO: *BUG* Both transmitter_model and receiver_model share the same pmem setting for target_frequency.
     button_mic_app.on_select = [this](Button&) {
-        if (frequency_list.size() > 0 && current_index >= 0 && (unsigned)current_index < frequency_list.size()) {
+        if ((int)frequency_list.size() > 0 && current_index >= 0 && (unsigned)current_index < frequency_list.size()) {
             if (current_entry().type == freqman_type::HamRadio) {
                 // if it's a HamRadio entry, then frequency_a is the freq at which the repeater receives, so we have to set it in transmit in mic app
                 transmitter_model.set_target_frequency(current_entry().frequency_a);
@@ -875,7 +875,7 @@ void ReconView::on_statistics_update(const ChannelStatistics& statistics) {
             if (status != 2) {
                 status = 2;
                 // FREQ IS STRONG: GREEN and recon will pause when on_statistics_update()
-                if ((!scanner_mode) && autosave && frequency_list.size() > 0) {
+                if ((!scanner_mode) && autosave && (int)frequency_list.size() > 0) {
                     recon_save_freq(freq_file_path, current_index, false);
                 }
                 if (wait != 0) {
@@ -893,7 +893,7 @@ void ReconView::on_statistics_update(const ChannelStatistics& statistics) {
                         is_recording = true;
                     }
                     // FREQ IS STRONG: GREEN and recon will pause when on_statistics_update()
-                    if ((!scanner_mode) && autosave && frequency_list.size() > 0) {
+                    if ((!scanner_mode) && autosave && (int)frequency_list.size() > 0) {
                         recon_save_freq(freq_file_path, current_index, false);
                     }
                 }
@@ -923,7 +923,7 @@ void ReconView::on_statistics_update(const ChannelStatistics& statistics) {
     if (recon || stepper != 0 || index_stepper != 0) {
         if (!timer || stepper != 0 || index_stepper != 0) {
             // IF THERE IS A FREQUENCY LIST ...
-            if (frequency_list.size() > 0) {
+            if ((int)frequency_list.size() > 0) {
                 has_looped = false;
                 entry_has_changed = false;
                 if (recon || stepper != 0 || index_stepper != 0) {
@@ -1086,7 +1086,7 @@ void ReconView::on_statistics_update(const ChannelStatistics& statistics) {
                     if (stepper < 0) stepper++;
                     if (stepper > 0) stepper--;
                 }  // if( recon || stepper != 0 || index_stepper != 0 )
-            }  // if (frequency_list.size() > 0 )
+            }  // if ((int)frequency_list.size() > 0 )
         } /* on_statistics_updates */
     }
     handle_retune();
@@ -1126,7 +1126,7 @@ void ReconView::on_index_delta(int32_t v) {
         fwd = false;
         button_dir.set_text("<RW");
     }
-    if (frequency_list.size() > 0)
+    if ((int)frequency_list.size() > 0)
         index_stepper = v;
 
     freq_lock = 0;
@@ -1142,7 +1142,7 @@ void ReconView::on_stepper_delta(int32_t v) {
         fwd = false;
         button_dir.set_text("<RW");
     }
-    if (frequency_list.size() > 0)
+    if ((int)frequency_list.size() > 0)
         stepper = v;
 
     freq_lock = 0;
@@ -1304,7 +1304,7 @@ void ReconView::handle_remove_current_item() {
     }
 
     // Clip
-    if (frequency_list.size() > 0) {
+    if ((int)frequency_list.size() > 0) {
         current_index = clip<int32_t>(current_index, 0u, frequency_list.size() - 1);
         text_cycle.set_text(to_string_dec_uint(current_index + 1, 3));
         entry = current_entry();

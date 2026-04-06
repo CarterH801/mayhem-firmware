@@ -1007,11 +1007,11 @@ void HWTestView::draw_test_row(int idx) {
     // Format: [SYM] Name    Value
     // Truncate name to 8 chars, value to 6 chars
     std::string name = r.name;
-    if (name.size() > 9) name = name.substr(0, 9);
-    while (name.size() < 9) name += " ";
+    if ((int)name.size() > 9) name = name.substr(0, 9);
+    while ((int)name.size() < 9) name += " ";
 
     std::string val = r.value;
-    if (val.size() > 6) val = val.substr(0, 6);
+    if ((int)val.size() > 6) val = val.substr(0, 6);
 
     const std::string row =
         status_symbol(r.status) + name + val;

@@ -494,17 +494,17 @@ void AMFMScannerView::draw_station_list() {
             const auto& s = found_stations_[idx];
 
             const int32_t bar_len = std::min((int32_t)4,
-                std::max(0, (s.rssi_db + 100) / 10));
+                std::max((int32_t)0, (s.rssi_db + 100) / 10));
             std::string sig = "";
             for (int b = 0; b < bar_len; b++) sig += "*";
             for (int b = bar_len; b < 4; b++)  sig += ".";
 
             std::string label = s.band_label;
-            if (label.size() > 12)
+            if ((int)label.size() > 12)
                 label = label.substr(0, 12);
 
             std::string fstr = s.freq_str;
-            while (fstr.size() < 8) fstr += " ";
+            while ((int)fstr.size() < 8) fstr += " ";
 
             const std::string sel =
                 (idx == selected_station_) ? ">" : " ";

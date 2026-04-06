@@ -207,11 +207,11 @@ void SatPassView::draw_event_log() {
 
             // Pad satellite name to 10 chars
             std::string name = e.sat_name;
-            while (name.size() < 10) name += " ";
+            while ((int)name.size() < 10) name += " ";
 
             // Format frequency
             std::string freq = format_freq(e.freq_hz);
-            while (freq.size() < 9) freq += " ";
+            while ((int)freq.size() < 9) freq += " ";
 
             const std::string row =
                 "--:--:--  " +

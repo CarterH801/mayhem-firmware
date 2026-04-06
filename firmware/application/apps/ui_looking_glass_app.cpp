@@ -599,7 +599,7 @@ void GlassView::load_presets() {
                 continue;
 
             auto cols = split_string(line, ',');
-            if (cols.size() != 3)
+            if ((int)cols.size() != 3)
                 continue;
 
             preset_entry entry{};

@@ -1300,8 +1300,8 @@ void RFAssistantView::display_result(
 
 void RFAssistantView::scroll_result(int delta) {
     const int max_scroll =
-        std::max(0, (int)result_lines_.size() - 12);
-    result_scroll_ = std::max(0,
+        std::max((int32_t)0, (int)result_lines_.size() - 12);
+    result_scroll_ = std::max((int32_t)0,
         std::min(max_scroll, result_scroll_ + delta));
     update_result_display();
 }

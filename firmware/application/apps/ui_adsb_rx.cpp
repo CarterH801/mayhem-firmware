@@ -416,7 +416,7 @@ void ADSBRxDetailsView::add_map_trail(const AircraftRecentEntry& entry) {
     }
 
     // Only keep the last 30 positions in the trail.
-    if (pos_history.size() >= 30)
+    if ((int)pos_history.size() >= 30)
         pos_history.erase(pos_history.begin());
     pos_history.push_back({entry.pos.latitude, entry.pos.longitude, entry.velo.heading, entry.pos.altitude});
     refresh_trail_markers();

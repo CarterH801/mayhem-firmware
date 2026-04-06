@@ -78,7 +78,7 @@ AboutView::AboutView(NavigationView& nav) {
 
     for (auto& authors_line : mayhem_information_list) {
         // if it's starting with #, it's a title and we have to substract the '#' and paint yellow
-        if (authors_line.size() > 0) {
+        if ((int)authors_line.size() > 0) {
             if (authors_line[0] == '#') {
                 menu_view.add_item(
                     {(std::string)authors_line.substr(1, authors_line.size() - 1),

@@ -73,7 +73,7 @@ void PlaylistView::load_file(const fs::path& playlist_path) {
             continue;
 
         // Read optional delay value.
-        if (cols.size() > 1)
+        if ((int)cols.size() > 1)
             parse_int(cols[1], entry->ms_delay);
 
         playlist_db_.emplace_back(*std::move(entry));

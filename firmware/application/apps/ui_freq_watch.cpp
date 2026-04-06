@@ -101,7 +101,7 @@ FreqWatchView::FreqWatchView(NavigationView& nav)
         e.threshold_dbm = field_threshold.value();
         e.label = bandplan::get_band_label(e.freq);
         // Truncate label
-        if (e.label.size() > 12)
+        if (e.(int)label.size() > 12)
             e.label = e.label.substr(0, 12);
         e.enabled = true;
         e.trigger_count = 0;
@@ -337,22 +337,22 @@ void FreqWatchView::draw_entry_row(int idx) {
 
     // Frequency — 8 chars
     std::string fs = format_freq(e.freq);
-    while (fs.size() < 8) fs += " ";
+    while ((int)fs.size() < 8) fs += " ";
 
     // Label — 12 chars
     std::string lbl = e.label;
-    while (lbl.size() < 12) lbl += " ";
-    if (lbl.size() > 12) lbl = lbl.substr(0, 12);
+    while ((int)lbl.size() < 12) lbl += " ";
+    if ((int)lbl.size() > 12) lbl = lbl.substr(0, 12);
 
     // Threshold
     std::string thr =
         to_string_dec_int(e.threshold_dbm);
-    while (thr.size() < 4) thr = " " + thr;
+    while ((int)thr.size() < 4) thr = " " + thr;
 
     // Last RSSI
     std::string rssi =
         to_string_dec_int(e.last_rssi);
-    while (rssi.size() < 4) rssi = " " + rssi;
+    while ((int)rssi.size() < 4) rssi = " " + rssi;
 
     // Trigger count
     const std::string cnt =
