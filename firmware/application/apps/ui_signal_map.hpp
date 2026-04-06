@@ -139,13 +139,6 @@ class SignalMapView : public View {
 
     // ── UI Widgets ────────────────────────────────────────
 
-    // Map area — uses GeoMapView from Mayhem
-    GeoMapView geomap{
-        {0, MAP_TOP, MAP_WIDTH, MAP_HEIGHT},
-        0,           // zoom level
-        GeoMapView::Mode::View,
-        0.0, 0.0     // initial center lat/lon
-    };
 
     // ── Row below map: live RSSI + distance ──────────────
     Text text_rssi_live{
