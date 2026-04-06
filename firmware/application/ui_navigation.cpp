@@ -75,19 +75,6 @@
 
 #include <locale>
 #include <codecvt>
-#include "apps/ui_amfm_scanner.hpp"
-#include "apps/ui_sigfinder.hpp"
-#include "apps/ui_range_est.hpp"
-#include "apps/ui_signal_map.hpp"
-#include "apps/ui_freq_watch.hpp"
-#include "apps/ui_mod_ident.hpp"
-#include "apps/ui_tpms_counter.hpp"
-#include "apps/ui_noaa_sat.hpp"
-#include "apps/ui_sat_pass.hpp"
-#include "apps/ui_waterfall_rec.hpp"
-#include "apps/ui_rf_assistant.hpp"
-#include "apps/ui_hw_test.hpp"
-
 
 using portapack::receiver_model;
 using portapack::transmitter_model;
