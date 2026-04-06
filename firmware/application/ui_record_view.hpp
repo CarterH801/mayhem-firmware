@@ -22,7 +22,7 @@
 #ifndef __UI_RECORD_VIEW_H__
 #define __UI_RECORD_VIEW_H__
 
-#include "ui_iq_trim.hpp"
+#include "apps/ui_iq_trim.hpp"
 #include "ui_widget.hpp"
 
 #include "bitmap.hpp"
