@@ -23,7 +23,7 @@
 #define __UI_RECORD_VIEW_H__
 
 #include "apps/ui_iq_trim.hpp"
-#include "ui_widget.hpp"
+#include "../common/ui_widget.hpp"
 
 #include "bitmap.hpp"
 #include "capture_thread.hpp"
