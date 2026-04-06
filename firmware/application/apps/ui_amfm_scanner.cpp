@@ -513,11 +513,10 @@ void AMFMScannerView::draw_station_list() {
 
             rows[i]->set(row);
             rows[i]->set_style(
-                &(Styles::fg(
-                    color_for_category(s.category))));
+                ui::Theme::getInstance()->fg_light);
         } else {
             rows[i]->set("");
-            rows[i]->set_style(&Styles::white);
+            rows[i]->set_style(ui::Theme::getInstance()->fg_light);
         }
     }
 
