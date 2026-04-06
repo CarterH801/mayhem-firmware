@@ -18,7 +18,7 @@
 #include "ui.hpp"
 #include "ui_widget.hpp"
 #include "ui_navigation.hpp"
-#include "ui_geomap.hpp"          // Mayhem's existing map widget
+          // Mayhem's existing map widget
 #include "receiver_model.hpp"
 #include "string_format.hpp"
 #include "portapack.hpp"
@@ -75,7 +75,6 @@ class SignalMapView : public View {
     }
 
     // Paint override — draw circles and markers on map
-    void paint(Painter& painter) override;
 
    private:
     void init(uint64_t freq_hz,
@@ -110,9 +109,6 @@ class SignalMapView : public View {
 
     // ── Map view area (top portion of screen) ────────────
     // Map takes up rows 0-190, controls below
-    static constexpr int MAP_TOP    = 16;
-    static constexpr int MAP_HEIGHT = 180;
-    static constexpr int MAP_WIDTH  = 240;
 
     // ── Math helpers ──────────────────────────────────────
     float calc_distance_meters(int32_t rssi,
@@ -121,8 +117,6 @@ class SignalMapView : public View {
 
     // Convert lat/lon to pixel on the 240x180 map area
     // Based on Mercator projection matching world_map.bin
-    struct PixelPos { int x; int y; };
-    PixelPos latlon_to_pixel(float lat, float lon) const;
     float    pixel_to_lat(int y) const;
     float    pixel_to_lon(int x) const;
 
@@ -131,20 +125,11 @@ class SignalMapView : public View {
     float meters_to_lon_deg(float meters, float lat) const;
 
     // Radius in pixels for a given distance in meters
-    int distance_to_pixels(float meters) const;
 
     // Trilateration from 3+ measurements
     TrilatResult trilaterate() const;
 
     // Draw everything on map canvas
-    void draw_map_overlay(Painter& painter);
-    void draw_measurement_circle(Painter&               painter,
-                                 const SignalMeasurement& m,
-                                 int                      idx);
-    void draw_observer_dot(Painter& painter,
-                           float lat, float lon,
-                           Color col);
-    void draw_transmitter_estimate(Painter& painter);
 
     void take_measurement();
     void update_rssi_display();
