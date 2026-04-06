@@ -149,7 +149,7 @@ void FreqWatchView::start_watch() {
     current_scan_idx_  = 0;
     dwell_counter_     = 0;
     button_watch.set_text("STOP");
-    button_watch.set_style(&Styles::red);
+    button_watch.set_style(ui::Theme::getInstance()->fg_light);
     text_status.set("Watching...");
 
     // Set up receiver
@@ -171,7 +171,7 @@ void FreqWatchView::stop_watch() {
     clear_alert();
     receiver_model.disable();
     button_watch.set_text("WATCH");
-    button_watch.set_style(&Styles::white);
+    button_watch.set_style(ui::Theme::getInstance()->fg_light);
     text_status.set("Stopped. Press WATCH to resume.");
     text_scanning.set("");
 }
@@ -260,8 +260,8 @@ void FreqWatchView::on_statistics_update(
         if (alert_flash_counter_ % 3 == 0) {
             text_alert.set_style(
                 alert_flash_counter_ % 6 < 3
-                ? &Styles::red
-                : &Styles::yellow);
+                ? ui::Theme::getInstance()->fg_light
+                : ui::Theme::getInstance()->fg_light);
         }
     }
 }
@@ -295,7 +295,7 @@ void FreqWatchView::trigger_alert(int entry_idx) {
         "!! ALERT: " + format_freq(e.freq) +
         " [" + e.label + "] " +
         to_string_dec_int(e.last_rssi) + "dBm !!");
-    text_alert.set_style(&Styles::red);
+    text_alert.set_style(ui::Theme::getInstance()->fg_light);
 
     // Beep alert
     baseband::set_beep(880, 200);  // 880Hz for 200ms
@@ -327,7 +327,7 @@ void FreqWatchView::draw_entry_row(int idx) {
         rows[idx]->set(" " +
             to_string_dec_uint(idx + 1) +
             " [empty slot]");
-        rows[idx]->set_style(&Styles::grey);
+        rows[idx]->set_style(ui::Theme::getInstance()->fg_light);
         return;
     }
 
@@ -368,13 +368,13 @@ void FreqWatchView::draw_entry_row(int idx) {
 
     // Color by state
     if (e.triggered) {
-        rows[idx]->set_style(&Styles::red);
+        rows[idx]->set_style(ui::Theme::getInstance()->fg_light);
     } else if (!e.enabled) {
-        rows[idx]->set_style(&Styles::grey);
+        rows[idx]->set_style(ui::Theme::getInstance()->fg_light);
     } else if (idx == current_scan_idx_ && watching_) {
-        rows[idx]->set_style(&Styles::yellow);
+        rows[idx]->set_style(ui::Theme::getInstance()->fg_light);
     } else {
-        rows[idx]->set_style(&Styles::white);
+        rows[idx]->set_style(ui::Theme::getInstance()->fg_light);
     }
 }
 

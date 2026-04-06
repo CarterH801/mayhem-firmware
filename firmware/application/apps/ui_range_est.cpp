@@ -96,10 +96,7 @@ void RangeEstView::init(rf::Frequency freq,
     text_freq.set(format_freq(target_freq_));
     text_band.set(band_label_);
     text_band.set_style(
-        &(Styles::fg(
-            color_for_category(
-                bandplan::get_band_category(
-                    target_freq_)))));
+        ui::Theme::getInstance()->fg_light)));
 
     // Default TX power from first preset
     tx_power_dbm_ = DEVICE_PRESETS[0].tx_power;
@@ -221,11 +218,11 @@ void RangeEstView::update_display() {
 
     // Color RSSI by strength
     if      (current_rssi_ > -60)
-        text_rssi.set_style(&Styles::green);
+        text_rssi.set_style(ui::Theme::getInstance()->fg_light);
     else if (current_rssi_ > -80)
-        text_rssi.set_style(&Styles::yellow);
+        text_rssi.set_style(ui::Theme::getInstance()->fg_light);
     else
-        text_rssi.set_style(&Styles::red);
+        text_rssi.set_style(ui::Theme::getInstance()->fg_light);
 
     // Calculate distance
     const float dist_m = calc_distance_meters(
@@ -244,7 +241,7 @@ void RangeEstView::update_display() {
         text_miles.set("--- ");
         text_meters.set("--- ");
         text_live.set("Signal too weak to estimate");
-        text_live.set_style(&Styles::grey);
+        text_live.set_style(ui::Theme::getInstance()->fg_light);
         return;
     }
 
@@ -254,20 +251,20 @@ void RangeEstView::update_display() {
 
     // Color code distance display by confidence
     if (conf >= 70) {
-        text_miles.set_style(&Styles::green);
-        text_meters.set_style(&Styles::green);
+        text_miles.set_style(ui::Theme::getInstance()->fg_light);
+        text_meters.set_style(ui::Theme::getInstance()->fg_light);
         text_live.set("Good estimate");
-        text_live.set_style(&Styles::green);
+        text_live.set_style(ui::Theme::getInstance()->fg_light);
     } else if (conf >= 40) {
-        text_miles.set_style(&Styles::yellow);
-        text_meters.set_style(&Styles::yellow);
+        text_miles.set_style(ui::Theme::getInstance()->fg_light);
+        text_meters.set_style(ui::Theme::getInstance()->fg_light);
         text_live.set("Rough estimate - move closer");
-        text_live.set_style(&Styles::yellow);
+        text_live.set_style(ui::Theme::getInstance()->fg_light);
     } else {
-        text_miles.set_style(&Styles::red);
-        text_meters.set_style(&Styles::red);
+        text_miles.set_style(ui::Theme::getInstance()->fg_light);
+        text_meters.set_style(ui::Theme::getInstance()->fg_light);
         text_live.set("Weak signal - low accuracy");
-        text_live.set_style(&Styles::red);
+        text_live.set_style(ui::Theme::getInstance()->fg_light);
     }
 }
 

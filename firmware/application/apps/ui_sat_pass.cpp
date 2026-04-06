@@ -72,7 +72,7 @@ void SatPassView::start_watch() {
     dwell_counter_     = 0;
 
     button_watch.set_text("STOP");
-    button_watch.set_style(&Styles::red);
+    button_watch.set_style(ui::Theme::getInstance()->fg_light);
     text_scanning.set(
         "Scanning " +
         to_string_dec_uint(SAT_FREQ_COUNT) +
@@ -92,7 +92,7 @@ void SatPassView::stop_watch() {
     watching_ = false;
     receiver_model.disable();
     button_watch.set_text("WATCH");
-    button_watch.set_style(&Styles::white);
+    button_watch.set_style(ui::Theme::getInstance()->fg_light);
     text_scanning.set("Stopped.");
     text_freq_now.set("");
 }
@@ -173,7 +173,7 @@ void SatPassView::trigger_pass(
         std::string(sf.sat_name) + " " +
         std::string(sf.description) + " " +
         to_string_dec_int(rssi) + "dBm !!");
-    text_alert.set_style(&Styles::green);
+    text_alert.set_style(ui::Theme::getInstance()->fg_light);
 
     // Log the event
     PassEvent evt;
@@ -221,7 +221,7 @@ void SatPassView::draw_event_log() {
                 "dBm";
 
             rows[i]->set(row);
-            rows[i]->set_style(&Styles::green);
+            rows[i]->set_style(ui::Theme::getInstance()->fg_light);
         } else {
             rows[i]->set("");
         }

@@ -84,7 +84,7 @@ void SigFinderView::init(rf::Frequency freq,
 
     // Color code band label
     text_band.set_style(
-        &(Styles::fg(color_for_category(category_))));
+        ui::Theme::getInstance()->fg_light));
 
     // Tune the radio
     receiver_model.set_target_frequency(target_freq_);
@@ -210,10 +210,10 @@ void SigFinderView::update_display() {
     text_percent_big.set(pstr);
 
     // Color the big number based on strength
-    if      (pct >= 75) text_percent_big.set_style(&Styles::red);
-    else if (pct >= 50) text_percent_big.set_style(&Styles::yellow);
-    else if (pct >= 25) text_percent_big.set_style(&Styles::green);
-    else                text_percent_big.set_style(&Styles::grey);
+    if      (pct >= 75) text_percent_big.set_style(ui::Theme::getInstance()->fg_light);
+    else if (pct >= 50) text_percent_big.set_style(ui::Theme::getInstance()->fg_light);
+    else if (pct >= 25) text_percent_big.set_style(ui::Theme::getInstance()->fg_light);
+    else                text_percent_big.set_style(ui::Theme::getInstance()->fg_light);
 }
 
 // ─────────────────────────────────────────
@@ -231,16 +231,16 @@ void SigFinderView::update_trend_arrow() {
     switch (current_trend_) {
         case Trend::UP:
             text_trend.set(" ^");
-            text_trend.set_style(&Styles::red);
+            text_trend.set_style(ui::Theme::getInstance()->fg_light);
             break;
         case Trend::DOWN:
             text_trend.set(" v");
-            text_trend.set_style(&Styles::cyan);
+            text_trend.set_style(ui::Theme::getInstance()->fg_light);
             break;
         case Trend::STEADY:
         default:
             text_trend.set(" -");
-            text_trend.set_style(&Styles::white);
+            text_trend.set_style(ui::Theme::getInstance()->fg_light);
             break;
     }
 }
@@ -251,7 +251,7 @@ void SigFinderView::update_trend_arrow() {
 void SigFinderView::update_hot_cold_label() {
     if (!baseline_set_) {
         text_hotcold.set("CALIBRATING");
-        text_hotcold.set_style(&Styles::grey);
+        text_hotcold.set_style(ui::Theme::getInstance()->fg_light);
         return;
     }
 
@@ -259,23 +259,23 @@ void SigFinderView::update_hot_cold_label() {
 
     if      (above >= 20) {
         text_hotcold.set("!!! HOT !!!");
-        text_hotcold.set_style(&Styles::red);
+        text_hotcold.set_style(ui::Theme::getInstance()->fg_light);
     }
     else if (above >= 12) {
         text_hotcold.set("  WARM    ");
-        text_hotcold.set_style(&Styles::yellow);
+        text_hotcold.set_style(ui::Theme::getInstance()->fg_light);
     }
     else if (above >= 6) {
         text_hotcold.set("  GETTING  ");
-        text_hotcold.set_style(&Styles::green);
+        text_hotcold.set_style(ui::Theme::getInstance()->fg_light);
     }
     else if (above >= 0) {
         text_hotcold.set("  COOL    ");
-        text_hotcold.set_style(&Styles::cyan);
+        text_hotcold.set_style(ui::Theme::getInstance()->fg_light);
     }
     else {
         text_hotcold.set("  COLD    ");
-        text_hotcold.set_style(&Styles::blue);
+        text_hotcold.set_style(ui::Theme::getInstance()->fg_light);
     }
 }
 
@@ -319,10 +319,10 @@ void SigFinderView::update_history_graph() {
         else                cols[i]->set(" ");
 
         // Color by strength
-        if      (pct >= 75) cols[i]->set_style(&Styles::red);
-        else if (pct >= 50) cols[i]->set_style(&Styles::yellow);
-        else if (pct >= 25) cols[i]->set_style(&Styles::green);
-        else                cols[i]->set_style(&Styles::grey);
+        if      (pct >= 75) cols[i]->set_style(ui::Theme::getInstance()->fg_light);
+        else if (pct >= 50) cols[i]->set_style(ui::Theme::getInstance()->fg_light);
+        else if (pct >= 25) cols[i]->set_style(ui::Theme::getInstance()->fg_light);
+        else                cols[i]->set_style(ui::Theme::getInstance()->fg_light);
     }
 }
 
@@ -408,11 +408,11 @@ void SigFinderView::start_capture() {
 
     capturing_ = true;
     button_capture.set_text("STOP REC");
-    button_capture.set_style(&Styles::red);
+    button_capture.set_style(ui::Theme::getInstance()->fg_light);
 
     text_capture_status.set(
         "REC: " + capture_filename_ + ".C16");
-    text_capture_status.set_style(&Styles::red);
+    text_capture_status.set_style(ui::Theme::getInstance()->fg_light);
 }
 
 // ─────────────────────────────────────────
@@ -431,11 +431,11 @@ void SigFinderView::stop_capture() {
 
     capturing_ = false;
     button_capture.set_text("CAPTURE");
-    button_capture.set_style(&Styles::white);
+    button_capture.set_style(ui::Theme::getInstance()->fg_light);
 
     text_capture_status.set(
         "Saved: " + capture_filename_ + ".C16");
-    text_capture_status.set_style(&Styles::green);
+    text_capture_status.set_style(ui::Theme::getInstance()->fg_light);
 }
 
 // ─────────────────────────────────────────

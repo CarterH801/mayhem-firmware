@@ -97,7 +97,7 @@ void TPMSCounterView::focus() {
 void TPMSCounterView::start_watch() {
     watching_ = true;
     button_watch.set_text("STOP");
-    button_watch.set_style(&Styles::red);
+    button_watch.set_style(ui::Theme::getInstance()->fg_light);
     text_status.set("Watching for TPMS packets...");
 
     const uint64_t freq =
@@ -117,7 +117,7 @@ void TPMSCounterView::stop_watch() {
     watching_ = false;
     receiver_model.disable();
     button_watch.set_text("WATCH");
-    button_watch.set_style(&Styles::white);
+    button_watch.set_style(ui::Theme::getInstance()->fg_light);
     text_status.set("Stopped. " +
         to_string_dec_uint((uint32_t)vehicles_.size()) +
         " vehicles logged.");
@@ -228,11 +228,11 @@ void TPMSCounterView::draw_list() {
 
             // Color by pressure — low pressure = red
             if (v.pressure_psi < 28)
-                rows[i]->set_style(&Styles::red);
+                rows[i]->set_style(ui::Theme::getInstance()->fg_light);
             else if (v.pressure_psi < 32)
-                rows[i]->set_style(&Styles::yellow);
+                rows[i]->set_style(ui::Theme::getInstance()->fg_light);
             else
-                rows[i]->set_style(&Styles::white);
+                rows[i]->set_style(ui::Theme::getInstance()->fg_light);
         } else {
             rows[i]->set("");
         }

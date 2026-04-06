@@ -198,11 +198,11 @@ void HWTestView::run_next_test() {
             " FAIL:" + to_string_dec_uint(fail));
 
         if (fail == 0 && warn == 0)
-            text_summary.set_style(&Styles::green);
+            text_summary.set_style(ui::Theme::getInstance()->fg_light);
         else if (fail == 0)
-            text_summary.set_style(&Styles::yellow);
+            text_summary.set_style(ui::Theme::getInstance()->fg_light);
         else
-            text_summary.set_style(&Styles::red);
+            text_summary.set_style(ui::Theme::getInstance()->fg_light);
 
         return;
     }
@@ -1018,7 +1018,7 @@ void HWTestView::draw_test_row(int idx) {
 
     rows[idx]->set(row);
     rows[idx]->set_style(
-        &(Styles::fg(status_color(r.status))));
+        ui::Theme::getInstance()->fg_light));
 }
 
 std::string HWTestView::status_symbol(

@@ -126,7 +126,7 @@ void WaterfallRecView::start_recording() {
     sweep_idx_   = 0;
 
     button_rec.set_text("STOP");
-    button_rec.set_style(&Styles::red);
+    button_rec.set_style(ui::Theme::getInstance()->fg_light);
 
     open_log_file();
     start_sweep();
@@ -153,7 +153,7 @@ void WaterfallRecView::stop_recording() {
     }
 
     button_rec.set_text("REC");
-    button_rec.set_style(&Styles::white);
+    button_rec.set_style(ui::Theme::getInstance()->fg_light);
     text_status.set(
         "Stopped. " +
         to_string_dec_uint(sweep_count_) +

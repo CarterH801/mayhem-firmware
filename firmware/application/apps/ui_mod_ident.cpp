@@ -53,10 +53,7 @@ void ModIdentView::init(rf::Frequency freq,
     text_freq.set(format_freq(target_freq_));
     text_band.set(band_label_);
     text_band.set_style(
-        &(Styles::fg(
-            color_for_category(
-                bandplan::get_band_category(
-                    target_freq_)))));
+        ui::Theme::getInstance()->fg_light)));
 
     button_analyze.on_select = [this](Button&) {
         // Reset and start new collection
@@ -270,11 +267,11 @@ void ModIdentView::update_display() {
 
     // Color by confidence
     if (result_.confidence_pct >= 75) {
-        text_mod_type.set_style(&Styles::green);
+        text_mod_type.set_style(ui::Theme::getInstance()->fg_light);
     } else if (result_.confidence_pct >= 50) {
-        text_mod_type.set_style(&Styles::yellow);
+        text_mod_type.set_style(ui::Theme::getInstance()->fg_light);
     } else {
-        text_mod_type.set_style(&Styles::red);
+        text_mod_type.set_style(ui::Theme::getInstance()->fg_light);
     }
 }
 
