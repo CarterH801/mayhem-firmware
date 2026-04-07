@@ -9,7 +9,12 @@
 
 #include "ui_signal_map.hpp"
 
+#include "receiver_model.hpp"
+#include "portapack.hpp"
+
 #include <cmath>
+
+using namespace portapack;
 
 namespace ui {
 
