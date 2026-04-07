@@ -84,7 +84,7 @@ void SigFinderView::init(rf::Frequency freq,
 
     // Color code band label
     text_band.set_style(
-        ui::Theme::getInstance()->fg_light));
+        ui::Theme::getInstance()->fg_light);
 
     // Tune the radio
     receiver_model.set_target_frequency(target_freq_);
@@ -360,12 +360,12 @@ void SigFinderView::update_audio_tone() {
         // tone_key::set(freq_hz, 50); // 50ms tone
         // Note: exact API depends on Mayhem version
         // Most common approach:
-        baseband::set_beep(freq_hz, 60);  // 60ms beep
+        (void)freq_hz;  // baseband::set_beep not available in this build
     }
 }
 
 void SigFinderView::stop_audio() {
-    baseband::set_beep(0, 0);
+    // baseband::set_beep not available in this build
 }
 
 // ─────────────────────────────────────────
@@ -422,7 +422,7 @@ void SigFinderView::stop_capture() {
     if (!capturing_) return;
 
     // Stop baseband recording
-    baseband::kill();
+    baseband::shutdown();
 
     // Restore normal receive mode
     receiver_model.set_sampling_rate(3072000);
