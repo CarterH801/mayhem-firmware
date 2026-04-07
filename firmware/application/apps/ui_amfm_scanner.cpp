@@ -56,19 +56,6 @@ AMFMScannerView::AMFMScannerView(NavigationView& nav)
         }
     };
 
-    // FIND — launch Signal Finder on selected station
-    button_find.on_select = [this](Button&) {
-        if (selected_station_ >= 0 &&
-            selected_station_ < (int16_t)found_stations_.size()) {
-            const auto& s = found_stations_[selected_station_];
-            stop_scan();
-            nav_.push<SigFinderView>(
-                s.frequency,
-                s.band_label,
-                s.category);
-        }
-    };
-
     button_tune.on_select = [this](Button&) {
         if (selected_station_ >= 0 &&
             selected_station_ < (int16_t)found_stations_.size()) {
@@ -116,7 +103,6 @@ void AMFMScannerView::start_scan() {
     noise_samples_    = 0;
     noise_sum_        = 0;
     confirm_count_    = 0;
-    drone_band_idx_   = 0;
 
     scan_mode_ = options_mode.selected_index();
 
@@ -136,15 +122,11 @@ void AMFMScannerView::start_scan() {
             scan_end_   = FM_END;
             scan_step_  = FM_STEP;
             break;
-        case 3:  // KFOB — start with 315 MHz ±2MHz
-            scan_start_ = bandplan::KEYFOB_US_FREQ -
-                          bandplan::KEYFOB_SCAN_BW;
-            scan_end_   = bandplan::KEYFOB_US_FREQ +
-                          bandplan::KEYFOB_SCAN_BW;
-            scan_step_  = 25'000;
-            break;
-        case 4:  // DRONE — use drone band table
-            load_drone_band(0);
+        case 3:  // KFOB — disabled (feature removed)
+        case 4:  // DRONE — disabled (feature removed)
+            scan_start_ = FM_START;
+            scan_end_   = FM_END;
+            scan_step_  = FM_STEP;
             break;
         case 5:  // BT — scan all 3 BLE advertising channels
             // Start at BLE adv ch.37 = 2402 MHz
@@ -164,25 +146,6 @@ void AMFMScannerView::start_scan() {
     set_modulation_for_band();
     tune_to(current_freq_);
     draw_station_list();
-}
-
-// ─────────────────────────────────────────
-// Load a drone band window by index
-// ─────────────────────────────────────────
-void AMFMScannerView::load_drone_band(int idx) {
-    if (idx >= bandplan::DRONE_BAND_COUNT) {
-        stop_scan();
-        return;
-    }
-    drone_band_idx_ = idx;
-    const auto& db  = bandplan::DRONE_BANDS[idx];
-    scan_start_ = db.center - db.bw / 2;
-    scan_end_   = db.center + db.bw / 2;
-    scan_step_  = 500'000;  // 500kHz steps for wide drone bands
-
-    // Update status with current drone band name
-    text_status.set(
-        std::string("DRONE: ") + db.label + " scanning...");
 }
 
 // ─────────────────────────────────────────
@@ -278,59 +241,6 @@ void AMFMScannerView::next_frequency() {
             set_modulation_for_band();
             tune_to(current_freq_);
             return;
-        }
-
-        // KFOB mode: US done → EU 433 → EU 868
-        if (scan_mode_ == 3) {
-            if (scan_start_ == bandplan::KEYFOB_US_FREQ -
-                               bandplan::KEYFOB_SCAN_BW) {
-                // Move to EU 433.92 MHz
-                scan_start_   = bandplan::KEYFOB_EU_FREQ -
-                                bandplan::KEYFOB_SCAN_BW;
-                scan_end_     = bandplan::KEYFOB_EU_FREQ +
-                                bandplan::KEYFOB_SCAN_BW;
-                scan_step_    = 25'000;
-                current_freq_ = scan_start_;
-                scan_state_   = ScanState::CALIBRATING;
-                noise_samples_ = 0;
-                noise_sum_     = 0;
-                text_status.set("KFOB: EU 433MHz...");
-                set_modulation_for_band();
-                tune_to(current_freq_);
-                return;
-            }
-            if (scan_start_ == bandplan::KEYFOB_EU_FREQ -
-                               bandplan::KEYFOB_SCAN_BW) {
-                // Move to EU2 868 MHz
-                scan_start_   = bandplan::KEYFOB_EU2_FREQ -
-                                bandplan::KEYFOB_SCAN_BW;
-                scan_end_     = bandplan::KEYFOB_EU2_FREQ +
-                                bandplan::KEYFOB_SCAN_BW;
-                scan_step_    = 25'000;
-                current_freq_ = scan_start_;
-                scan_state_   = ScanState::CALIBRATING;
-                noise_samples_ = 0;
-                noise_sum_     = 0;
-                text_status.set("KFOB: EU 868MHz...");
-                set_modulation_for_band();
-                tune_to(current_freq_);
-                return;
-            }
-        }
-
-        // DRONE mode: advance to next drone band
-        if (scan_mode_ == 4) {
-            const int next = drone_band_idx_ + 1;
-            if (next < bandplan::DRONE_BAND_COUNT) {
-                load_drone_band(next);
-                current_freq_ = scan_start_;
-                scan_state_   = ScanState::CALIBRATING;
-                noise_samples_ = 0;
-                noise_sum_     = 0;
-                set_modulation_for_band();
-                tune_to(current_freq_);
-                return;
-            }
         }
 
         // BT mode: hop through 3 BLE advertising channels
