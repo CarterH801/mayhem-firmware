@@ -96,7 +96,7 @@ void RangeEstView::init(rf::Frequency freq,
     text_freq.set(format_freq(target_freq_));
     text_band.set(band_label_);
     text_band.set_style(
-        ui::Theme::getInstance()->fg_light)));
+        ui::Theme::getInstance()->fg_light);
 
     // Default TX power from first preset
     tx_power_dbm_ = DEVICE_PRESETS[0].tx_power;
@@ -361,7 +361,7 @@ std::string RangeEstView::format_miles(float m) const {
         // Show 3 decimal places
         const uint32_t thou =
             (uint32_t)(miles * 1000.0f + 0.5f);
-        return "0." +
+        return std::string("0.") +
                (thou < 100 ? "0" : "") +
                (thou < 10  ? "0" : "") +
                to_string_dec_uint(thou) + " mi";
