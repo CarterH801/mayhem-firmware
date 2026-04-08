@@ -308,8 +308,9 @@ void WaterfallRecView::paint(Painter& painter) {
                 wfall_buf_[buf_row][buf_col];
             const Color c = rssi_to_color(rssi);
 
-            painter.draw_pixel(
-                {col, WFALL_Y_START + row}, c);
+            // Painter has no draw_pixel; use a 1x1 rectangle instead
+            painter.draw_rectangle(
+                {{col, WFALL_Y_START + row}, {1, 1}}, c);
         }
     }
 }
