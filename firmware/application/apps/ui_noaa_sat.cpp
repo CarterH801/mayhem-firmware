@@ -149,9 +149,7 @@ void NOAASatView::process_audio_line(const uint8_t* line_data) {
     update_preview(line_data, lines_received_);
 
     // Write raw line to PGM file
-    if (image_file_.is_valid()) {
-        image_file_.write(line_data, APTDecoder::LINE_WIDTH);
-    }
+    image_file_.write(line_data, APTDecoder::LINE_WIDTH);
 }
 
 void NOAASatView::update_preview(const uint8_t* line_data, int line_num) {
@@ -174,7 +172,7 @@ void NOAASatView::draw_preview(Painter& painter) {
         for (int x = 0; x < PREVIEW_W; x++) {
             uint8_t v = preview_[y * PREVIEW_W + x];
             Color c(v, v, v);
-            painter.draw_pixel({x, IMG_TOP + y}, c);
+            painter.fill_rectangle({{x, IMG_TOP + y}, {1, 1}}, c);
         }
     }
     preview_dirty_ = false;
