@@ -1300,9 +1300,9 @@ void RFAssistantView::display_result(
 
 void RFAssistantView::scroll_result(int delta) {
     const int max_scroll =
-        std::max((int32_t)0, (int)result_lines_.size() - 12);
-    result_scroll_ = std::max((int32_t)0,
-        std::min(max_scroll, result_scroll_ + delta));
+        std::max<int>(0, (int)result_lines_.size() - 12);
+    result_scroll_ = std::max<int>(0,
+        std::min<int>(max_scroll, (int)result_scroll_ + delta));
     update_result_display();
 }
 
@@ -1372,11 +1372,6 @@ void RFAssistantView::wrap_text(
         lines.push_back(current_line);
 }
 
-// Stub — implemented inline above for size
-std::string RFAssistantView::get_freq_details(
-    uint64_t, const std::string&,
-    const std::string&) const {
-    return "";
-}
+// (real definition is above; duplicate stub removed)
 
 }  // namespace ui

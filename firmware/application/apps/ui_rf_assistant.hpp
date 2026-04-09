@@ -133,6 +133,9 @@ class RFAssistantView : public View {
                    int width,
                    std::vector<std::string>& lines) const;
     void update_result_display();
+    std::string get_freq_details(uint64_t freq_hz,
+                                 const std::string& label,
+                                 const std::string& cat) const;
 
     // ── UI State ──────────────────────────────────────────
 
