@@ -312,15 +312,10 @@ set(CPPSRC
 apps/ui_amfm_scanner.cpp
 apps/ui_sigfinder.cpp
 apps/ui_range_est.cpp
-apps/ui_signal_map.cpp
 apps/ui_freq_watch.cpp
 apps/ui_mod_ident.cpp
 apps/ui_tpms_counter.cpp
-apps/ui_noaa_sat.cpp
-apps/ui_sat_pass.cpp
-apps/ui_waterfall_rec.cpp
 apps/ui_rf_assistant.cpp
-apps/ui_hw_test.cpp
 	apps/ui_settings.cpp
 	apps/ui_sonde.cpp
 	apps/ui_ss_viewer.cpp
