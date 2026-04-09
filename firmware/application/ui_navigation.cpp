@@ -944,6 +944,18 @@ SystemMenuView::SystemMenuView(NavigationView& nav)
 }
 
 void SystemMenuView::on_populate() {
+    add_item({"RF Scanner",  Theme::getInstance()->fg_green->foreground,  &bitmap_icon_scanner,   [this]() { nav_.push<AMFMScannerView>(); }});
+    add_item({"Sig Finder",  Theme::getInstance()->fg_yellow->foreground, &bitmap_icon_search,    [this]() { nav_.push<SigFinderView>(); }});
+    add_item({"Range Est",   Theme::getInstance()->fg_cyan->foreground,   &bitmap_icon_distance,  [this]() { nav_.push<RangeEstView>(); }});
+    add_item({"Signal Map",  Theme::getInstance()->fg_blue->foreground,   &bitmap_icon_map,       [this]() { nav_.push<SignalMapView>(); }});
+    add_item({"Freq Watch",  Theme::getInstance()->fg_red->foreground,    &bitmap_icon_receiver,  [this]() { nav_.push<FreqWatchView>(); }});
+    add_item({"Mod Ident",   Theme::getInstance()->fg_orange->foreground, &bitmap_icon_receiver,  [this]() { nav_.push<ModIdentView>(); }});
+    add_item({"TPMS Count",  Theme::getInstance()->fg_light->foreground,  &bitmap_icon_tpms,      [this]() { nav_.push<TPMSCounterView>(); }});
+    add_item({"NOAA Sat",    Theme::getInstance()->fg_cyan->foreground,   &bitmap_icon_satellite, [this]() { nav_.push<NOAASatView>(); }});
+    add_item({"Sat Pass",    Theme::getInstance()->fg_blue->foreground,   &bitmap_icon_satellite, [this]() { nav_.push<SatPassView>(); }});
+    add_item({"Waterfall",   Theme::getInstance()->fg_green->foreground,  &bitmap_icon_spectrum,  [this]() { nav_.push<WaterfallRecView>(); }});
+    add_item({"RF Assist",   Theme::getInstance()->fg_light->foreground,  &bitmap_icon_receiver,  [this]() { nav_.push<RFAssistantView>(); }});
+    add_item({"HW Test",     Theme::getInstance()->fg_red->foreground,    &bitmap_icon_tools,     [this]() { nav_.push<HWTestView>(); }});
     add_apps(nav_, *this, HOME);
     add_external_items(nav_, app_location_t::HOME, *this, 0);
     add_item({"HackRF", Theme::getInstance()->fg_cyan->foreground, &bitmap_icon_hackrf, [this]() { hackrf_mode(nav_); }});
