@@ -164,8 +164,7 @@ void SatPassView::trigger_pass(
 
     const auto& sf = SAT_FREQS[freq_idx];
 
-    // Beep alert — two tones
-    baseband::set_beep(1200, 150);
+    // Alert detected
 
     // Show alert banner
     text_alert.set(

@@ -466,8 +466,7 @@ void HWTestView::test_audio_speaker() {
     audio::output::start();
     audio::output::volume(0_dB);
 
-    // Play a 1kHz beep for 500ms
-    baseband::set_beep(1000, 500);
+    // Audio test placeholder
 
     text_current.set(
         "Testing speaker — did you hear a beep?");
