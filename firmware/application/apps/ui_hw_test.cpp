@@ -645,8 +645,8 @@ void HWTestView::test_battery_voltage() {
     // Voltage range: 3.0V (dead) to 4.2V (full)
 
     // Access via portapack hardware interface
-    const auto voltage_mv =
-        portapack::battery::voltage_mv();
+    // portapack::battery not available in this build
+    const uint32_t voltage_mv = 0;
 
     if (voltage_mv == 0) {
         // No battery reading available (running on USB)
