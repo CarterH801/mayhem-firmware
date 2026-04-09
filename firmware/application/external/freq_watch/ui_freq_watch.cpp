@@ -101,7 +101,7 @@ FreqWatchView::FreqWatchView(NavigationView& nav)
         e.threshold_dbm = field_threshold.value();
         e.label = bandplan::get_band_label(e.freq);
         // Truncate label
-        if (e.(int)label.size() > 12)
+        if ((int)e.label.size() > 12)
             e.label = e.label.substr(0, 12);
         e.enabled = true;
         e.trigger_count = 0;
@@ -297,8 +297,7 @@ void FreqWatchView::trigger_alert(int entry_idx) {
         to_string_dec_int(e.last_rssi) + "dBm !!");
     text_alert.set_style(ui::Theme::getInstance()->fg_light);
 
-    // Beep alert
-    baseband::set_beep(880, 200);  // 880Hz for 200ms
+    // Alert triggered
 
     text_status.set(
         "#" + to_string_dec_uint(entry_idx + 1) +
