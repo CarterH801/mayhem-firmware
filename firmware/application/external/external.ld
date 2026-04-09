@@ -111,6 +111,13 @@ MEMORY
     ram_external_app_sat_pass              (rwx) : org = 0xAE060000, len = 32k
     ram_external_app_waterfall_rec         (rwx) : org = 0xAE070000, len = 32k
     ram_external_app_hw_test               (rwx) : org = 0xAE080000, len = 32k
+    ram_external_app_amfm_scanner          (rwx) : org = 0xAE090000, len = 32k
+    ram_external_app_sigfinder             (rwx) : org = 0xAE0A0000, len = 32k
+    ram_external_app_range_est             (rwx) : org = 0xAE0B0000, len = 32k
+    ram_external_app_freq_watch            (rwx) : org = 0xAE0C0000, len = 32k
+    ram_external_app_mod_ident             (rwx) : org = 0xAE0D0000, len = 32k
+    ram_external_app_tpms_counter          (rwx) : org = 0xAE0E0000, len = 32k
+    ram_external_app_rf_assistant          (rwx) : org = 0xAE0F0000, len = 32k
 }
 
 SECTIONS
@@ -642,4 +649,46 @@ SECTIONS
         KEEP(*(.external_app.app_hw_test.application_information));
         *(*ui*external_app*hw_test*);
     } > ram_external_app_hw_test
+
+    .external_app_amfm_scanner : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_amfm_scanner.application_information));
+        *(*ui*external_app*amfm_scanner*);
+    } > ram_external_app_amfm_scanner
+
+    .external_app_sigfinder : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_sigfinder.application_information));
+        *(*ui*external_app*sigfinder*);
+    } > ram_external_app_sigfinder
+
+    .external_app_range_est : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_range_est.application_information));
+        *(*ui*external_app*range_est*);
+    } > ram_external_app_range_est
+
+    .external_app_freq_watch : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_freq_watch.application_information));
+        *(*ui*external_app*freq_watch*);
+    } > ram_external_app_freq_watch
+
+    .external_app_mod_ident : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_mod_ident.application_information));
+        *(*ui*external_app*mod_ident*);
+    } > ram_external_app_mod_ident
+
+    .external_app_tpms_counter : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_tpms_counter.application_information));
+        *(*ui*external_app*tpms_counter*);
+    } > ram_external_app_tpms_counter
+
+    .external_app_rf_assistant : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_rf_assistant.application_information));
+        *(*ui*external_app*rf_assistant*);
+    } > ram_external_app_rf_assistant
 }

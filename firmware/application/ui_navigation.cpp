@@ -75,13 +75,6 @@
 
 #include <locale>
 #include <codecvt>
-#include "apps/ui_amfm_scanner.hpp"
-#include "apps/ui_sigfinder.hpp"
-#include "apps/ui_range_est.hpp"
-#include "apps/ui_freq_watch.hpp"
-#include "apps/ui_mod_ident.hpp"
-#include "apps/ui_tpms_counter.hpp"
-#include "apps/ui_rf_assistant.hpp"
 
 
 
@@ -927,13 +920,6 @@ SystemMenuView::SystemMenuView(NavigationView& nav)
 }
 
 void SystemMenuView::on_populate() {
-    add_item({"RF Scanner",  Theme::getInstance()->fg_green->foreground,  &bitmap_icon_scanner,   [this]() { nav_.push<AMFMScannerView>(); }});
-    add_item({"Sig Finder",  Theme::getInstance()->fg_yellow->foreground, &bitmap_icon_search,    [this]() { nav_.push<SigFinderView>(); }});
-    add_item({"Range Est",   Theme::getInstance()->fg_cyan->foreground,   &bitmap_icon_receivers,  [this]() { nav_.push<RangeEstView>(); }});
-    add_item({"Freq Watch",  Theme::getInstance()->fg_red->foreground,    &bitmap_icon_receivers,  [this]() { nav_.push<FreqWatchView>(); }});
-    add_item({"Mod Ident",   Theme::getInstance()->fg_orange->foreground, &bitmap_icon_receivers,  [this]() { nav_.push<ModIdentView>(); }});
-    add_item({"TPMS Count",  Theme::getInstance()->fg_light->foreground,  &bitmap_icon_tpms,      [this]() { nav_.push<TPMSCounterView>(); }});
-    add_item({"RF Assist",   Theme::getInstance()->fg_light->foreground,  &bitmap_icon_receivers,  [this]() { nav_.push<RFAssistantView>(); }});
     add_apps(nav_, *this, HOME);
     add_external_items(nav_, app_location_t::HOME, *this, 0);
     add_item({"HackRF", Theme::getInstance()->fg_cyan->foreground, &bitmap_icon_hackrf, [this]() { hackrf_mode(nav_); }});
