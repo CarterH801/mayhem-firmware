@@ -106,6 +106,11 @@ MEMORY
     ram_external_app_epirb_tx              (rwx) : org = 0xAE010000, len = 32k
     ram_external_app_fpv_detect            (rwx) : org = 0xAE020000, len = 32k
     ram_external_app_p25_tx                (rwx) : org = 0xAE030000, len = 32k
+    ram_external_app_signal_map            (rwx) : org = 0xAE040000, len = 32k
+    ram_external_app_noaa_sat              (rwx) : org = 0xAE050000, len = 32k
+    ram_external_app_sat_pass              (rwx) : org = 0xAE060000, len = 32k
+    ram_external_app_waterfall_rec         (rwx) : org = 0xAE070000, len = 32k
+    ram_external_app_hw_test               (rwx) : org = 0xAE080000, len = 32k
 }
 
 SECTIONS
@@ -607,4 +612,34 @@ SECTIONS
         KEEP(*(.external_app.app_p25_tx.application_information));
         *(*ui*external_app*p25_tx*);
     } > ram_external_app_p25_tx
+
+    .external_app_signal_map : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_signal_map.application_information));
+        *(*ui*external_app*signal_map*);
+    } > ram_external_app_signal_map
+
+    .external_app_noaa_sat : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_noaa_sat.application_information));
+        *(*ui*external_app*noaa_sat*);
+    } > ram_external_app_noaa_sat
+
+    .external_app_sat_pass : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_sat_pass.application_information));
+        *(*ui*external_app*sat_pass*);
+    } > ram_external_app_sat_pass
+
+    .external_app_waterfall_rec : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_waterfall_rec.application_information));
+        *(*ui*external_app*waterfall_rec*);
+    } > ram_external_app_waterfall_rec
+
+    .external_app_hw_test : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_hw_test.application_information));
+        *(*ui*external_app*hw_test*);
+    } > ram_external_app_hw_test
 }

@@ -340,6 +340,26 @@ set(EXTCPPSRC
 	#p25_tx
 	external/p25_tx/main.cpp
 	external/p25_tx/ui_p25_tx.cpp
+
+	#signal_map
+	external/signal_map/main.cpp
+	external/signal_map/ui_signal_map.cpp
+
+	#noaa_sat
+	external/noaa_sat/main.cpp
+	external/noaa_sat/ui_noaa_sat.cpp
+
+	#sat_pass
+	external/sat_pass/main.cpp
+	external/sat_pass/ui_sat_pass.cpp
+
+	#waterfall_rec
+	external/waterfall_rec/main.cpp
+	external/waterfall_rec/ui_waterfall_rec.cpp
+
+	#hw_test
+	external/hw_test/main.cpp
+	external/hw_test/ui_hw_test.cpp
 )
 
 set(EXTAPPLIST
@@ -425,6 +445,11 @@ set(EXTAPPLIST
 	time_sink
 	kiss_tnc
 	p25_tx
+	signal_map
+	noaa_sat
+	sat_pass
+	waterfall_rec
+	hw_test
 )
 
 # sdusb has type conflicts with PRALINE (HackRF Pro) - add only for non-PRALINE builds
