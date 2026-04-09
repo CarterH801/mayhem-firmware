@@ -53,7 +53,7 @@ void ModIdentView::init(rf::Frequency freq,
     text_freq.set(format_freq(target_freq_));
     text_band.set(band_label_);
     text_band.set_style(
-        ui::Theme::getInstance()->fg_light)));
+        ui::Theme::getInstance()->fg_light);
 
     button_analyze.on_select = [this](Button&) {
         // Reset and start new collection
@@ -113,7 +113,7 @@ void ModIdentView::collect_sample(int32_t rssi) {
 // 2. Zero crossing rate — fast = high freq deviation
 // 3. AM modulation index — ratio of variation to carrier
 // ─────────────────────────────────────────
-ModResult ModIdentView::analyze_samples() const {
+ModResult ModIdentView::analyze_samples() {
     ModResult r;
 
     const float mean = calc_mean(

@@ -73,7 +73,7 @@ class ModIdentView : public View {
 
     // ── Analysis functions ────────────────────────────────
     void collect_sample(int32_t rssi);
-    ModResult analyze_samples() const;
+    ModResult analyze_samples();
 
     // Statistical helpers
     float calc_mean(const int32_t* data, int n) const;
