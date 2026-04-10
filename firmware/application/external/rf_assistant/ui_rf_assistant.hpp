@@ -129,6 +129,9 @@ class RFAssistantView : public View {
     void display_result(const std::string& title,
                         const std::string& body);
     void scroll_result(int delta);
+    std::string get_freq_details(uint64_t f,
+                                 const std::string& label,
+                                 const std::string& cat) const;
     void wrap_text(const std::string& text,
                    int width,
                    std::vector<std::string>& lines) const;
