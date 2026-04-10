@@ -121,6 +121,20 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+      - name: Inject custom app .ppma files into HackRF SD card zips
+        run: |
+          # PortaRF build includes custom apps that HackRF can't fit in flash.
+          # Extract the .ppma files from PortaRF and inject them into HackRF zips
+          # so all SD card packages have the full set of external apps.
+          mkdir -p /tmp/portarf_apps
+          unzip -j artifacts/sdcard-portarf/sdcard.zip "APPS/*.ppma" -d /tmp/portarf_apps
+          for zip in artifacts/sdcard-default/sdcard.zip artifacts/sdcard-no-map-default/sdcard-no-map.zip; do
+            mkdir -p /tmp/hackrf_merge
+            unzip "$zip" -d /tmp/hackrf_merge
+            cp -n /tmp/portarf_apps/*.ppma /tmp/hackrf_merge/APPS/
+            (cd /tmp/hackrf_merge && zip -r "$GITHUB_WORKSPACE/$zip" .)
+            rm -rf /tmp/hackrf_merge
+          done
       - name: Create changelog
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

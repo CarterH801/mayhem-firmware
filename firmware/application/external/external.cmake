@@ -437,32 +437,36 @@ if(NOT BOARD STREQUAL "PRALINE")
        list(APPEND EXTAPPLIST sdusb)
 endif()
 
-# Custom apps — external apps loaded from SD card, no flash size constraint
-list(APPEND EXTCPPSRC
-       external/signal_map/main.cpp
-       external/signal_map/ui_signal_map.cpp
-       external/noaa_sat/main.cpp
-       external/noaa_sat/ui_noaa_sat.cpp
-       external/sat_pass/main.cpp
-       external/sat_pass/ui_sat_pass.cpp
-       external/waterfall_rec/main.cpp
-       external/waterfall_rec/ui_waterfall_rec.cpp
-       external/hw_test/main.cpp
-       external/hw_test/ui_hw_test.cpp
-       external/amfm_scanner/main.cpp
-       external/amfm_scanner/ui_amfm_scanner.cpp
-       external/sigfinder/main.cpp
-       external/sigfinder/ui_sigfinder.cpp
-       external/range_est/main.cpp
-       external/range_est/ui_range_est.cpp
-       external/freq_watch/main.cpp
-       external/freq_watch/ui_freq_watch.cpp
-       external/mod_ident/main.cpp
-       external/mod_ident/ui_mod_ident.cpp
-       external/tpms_counter/main.cpp
-       external/tpms_counter/ui_tpms_counter.cpp
-       external/rf_assistant/main.cpp
-       external/rf_assistant/ui_rf_assistant.cpp
-)
-list(APPEND EXTAPPLIST signal_map noaa_sat sat_pass waterfall_rec hw_test amfm_scanner sigfinder range_est freq_watch mod_ident tpms_counter rf_assistant)
+# Custom apps — only compile on devices with >1MB flash (PortaRF, HackRF Pro)
+# The .ppma files are built by larger targets and injected into all SD card zips
+# by the release workflow, so HackRF users still get them on the SD card.
+if(FLASH_MB_LIMIT_SIZE GREATER 1)
+       list(APPEND EXTCPPSRC
+               external/signal_map/main.cpp
+               external/signal_map/ui_signal_map.cpp
+               external/noaa_sat/main.cpp
+               external/noaa_sat/ui_noaa_sat.cpp
+               external/sat_pass/main.cpp
+               external/sat_pass/ui_sat_pass.cpp
+               external/waterfall_rec/main.cpp
+               external/waterfall_rec/ui_waterfall_rec.cpp
+               external/hw_test/main.cpp
+               external/hw_test/ui_hw_test.cpp
+               external/amfm_scanner/main.cpp
+               external/amfm_scanner/ui_amfm_scanner.cpp
+               external/sigfinder/main.cpp
+               external/sigfinder/ui_sigfinder.cpp
+               external/range_est/main.cpp
+               external/range_est/ui_range_est.cpp
+               external/freq_watch/main.cpp
+               external/freq_watch/ui_freq_watch.cpp
+               external/mod_ident/main.cpp
+               external/mod_ident/ui_mod_ident.cpp
+               external/tpms_counter/main.cpp
+               external/tpms_counter/ui_tpms_counter.cpp
+               external/rf_assistant/main.cpp
+               external/rf_assistant/ui_rf_assistant.cpp
+       )
+       list(APPEND EXTAPPLIST signal_map noaa_sat sat_pass waterfall_rec hw_test amfm_scanner sigfinder range_est freq_watch mod_ident tpms_counter rf_assistant)
+endif()
 
