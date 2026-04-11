@@ -416,6 +416,15 @@ SECTIONS
         *(*ui*external_app*debug_pmem*);
     } > ram_external_app_debug_pmem
 
+    /* amfm_scanner must be matched BEFORE scanner, because the pattern
+       *(*ui*external_app*scanner*) would otherwise claim amfm_scanner's
+       symbols (substring match), overflowing the scanner section. */
+    .external_app_amfm_scanner : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_amfm_scanner.application_information));
+        *(*ui*external_app*amfm_scanner*);
+    } > ram_external_app_amfm_scanner
+
     .external_app_scanner : ALIGN(4) SUBALIGN(4)
     {
         KEEP(*(.external_app.app_scanner.application_information));
@@ -649,12 +658,6 @@ SECTIONS
         KEEP(*(.external_app.app_hw_test.application_information));
         *(*ui*external_app*hw_test*);
     } > ram_external_app_hw_test
-
-    .external_app_amfm_scanner : ALIGN(4) SUBALIGN(4)
-    {
-        KEEP(*(.external_app.app_amfm_scanner.application_information));
-        *(*ui*external_app*amfm_scanner*);
-    } > ram_external_app_amfm_scanner
 
     .external_app_sigfinder : ALIGN(4) SUBALIGN(4)
     {
