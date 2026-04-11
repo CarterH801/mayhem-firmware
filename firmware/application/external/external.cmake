@@ -333,8 +333,8 @@ if(NOT BOARD STREQUAL "PRALINE")
        list(APPEND EXTAPPLIST sdusb)
 endif()
 
-# 7 custom apps — compiled natively for every target (including HackRF) so
-# their .ppma files contain addresses matching the firmware they ship with.
+# 6 custom radio apps — compiled natively for every target (including HackRF)
+# so their .ppma files contain addresses matching the firmware they ship with.
 # Cross-copying .ppma files between different firmware builds does not work
 # because external apps reference main firmware functions via absolute
 # addresses baked in at link time.
@@ -351,14 +351,18 @@ list(APPEND EXTCPPSRC
        external/mod_ident/ui_mod_ident.cpp
        external/tpms_counter/main.cpp
        external/tpms_counter/ui_tpms_counter.cpp
-       external/rf_assistant/main.cpp
-       external/rf_assistant/ui_rf_assistant.cpp
 )
-list(APPEND EXTAPPLIST amfm_scanner sigfinder range_est freq_watch mod_ident tpms_counter rf_assistant)
+list(APPEND EXTAPPLIST amfm_scanner sigfinder range_est freq_watch mod_ident tpms_counter)
 
-# Still gated behind larger flash — not yet tested on HackRF.
+# rf_assistant has ~26KB of string-literal help text which would otherwise
+# overflow either the HackRF 1MB flash (strings in main .rodata) or the 32KB
+# per-app section limit (strings pulled into app section via linker glob).
+# Keep it gated for PortaRF/HackRF Pro where main firmware has enough headroom.
+# signal_map, noaa_sat, sat_pass, waterfall_rec, hw_test also stay gated.
 if(FLASH_MB_LIMIT_SIZE GREATER 1)
        list(APPEND EXTCPPSRC
+               external/rf_assistant/main.cpp
+               external/rf_assistant/ui_rf_assistant.cpp
                external/signal_map/main.cpp
                external/signal_map/ui_signal_map.cpp
                external/noaa_sat/main.cpp
@@ -370,6 +374,6 @@ if(FLASH_MB_LIMIT_SIZE GREATER 1)
                external/hw_test/main.cpp
                external/hw_test/ui_hw_test.cpp
        )
-       list(APPEND EXTAPPLIST signal_map noaa_sat sat_pass waterfall_rec hw_test)
+       list(APPEND EXTAPPLIST rf_assistant signal_map noaa_sat sat_pass waterfall_rec hw_test)
 endif()
 
