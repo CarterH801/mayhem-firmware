@@ -16,6 +16,13 @@ using namespace portapack;
 
 namespace ui::external_app::amfm_scanner {
 
+// App-local bandplan: data must live inside this namespace so its
+// symbols match the linker pattern for the external app section.
+namespace bandplan {
+    using ::ui::bandplan::BandEntry;
+    #include "ui_bandplan_data.inc"
+}
+
 // ─────────────────────────────────────────
 // Constructor
 // ─────────────────────────────────────────

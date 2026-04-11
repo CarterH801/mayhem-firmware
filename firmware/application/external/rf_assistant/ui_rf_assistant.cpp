@@ -13,6 +13,13 @@
 
 namespace ui::external_app::rf_assistant {
 
+// App-local bandplan: data must live inside this namespace so its
+// symbols match the linker pattern for the external app section.
+namespace bandplan {
+    using ::ui::bandplan::BandEntry;
+    #include "ui_bandplan_data.inc"
+}
+
 // ═════════════════════════════════════════════════════════
 //  DATABASE 1 — MAYHEM ERROR CODES
 //  Common errors, Guru Meditation codes, and fixes
