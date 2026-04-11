@@ -6,6 +6,7 @@
 #include "ui_mod_ident.hpp"
 #include "portapack.hpp"
 #include "receiver_model.hpp"
+#include "baseband_api.hpp"
 #include "string_format.hpp"
 #include <cmath>
 
