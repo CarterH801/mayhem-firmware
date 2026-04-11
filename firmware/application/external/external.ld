@@ -122,6 +122,54 @@ MEMORY
 
 SECTIONS
 {
+    /* Custom user apps FIRST — their patterns must match before greedier
+       patterns from existing apps claim their symbols. Example bug: the
+       `*ert*` pattern from ert app greedily matches "alert" functions in
+       freq_watch, stealing them into ert's memory region. Putting freq_watch
+       first means its `*freq_watch*` pattern catches the alert functions
+       before ert's pattern sees them. */
+    .external_app_amfm_scanner : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_amfm_scanner.application_information));
+        *(*ui*external_app*amfm_scanner*);
+    } > ram_external_app_amfm_scanner
+
+    .external_app_sigfinder : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_sigfinder.application_information));
+        *(*ui*external_app*sigfinder*);
+    } > ram_external_app_sigfinder
+
+    .external_app_range_est : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_range_est.application_information));
+        *(*ui*external_app*range_est*);
+    } > ram_external_app_range_est
+
+    .external_app_freq_watch : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_freq_watch.application_information));
+        *(*ui*external_app*freq_watch*);
+    } > ram_external_app_freq_watch
+
+    .external_app_mod_ident : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_mod_ident.application_information));
+        *(*ui*external_app*mod_ident*);
+    } > ram_external_app_mod_ident
+
+    .external_app_tpms_counter : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_tpms_counter.application_information));
+        *(*ui*external_app*tpms_counter*);
+    } > ram_external_app_tpms_counter
+
+    .external_app_rf_assistant : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.external_app.app_rf_assistant.application_information));
+        *(*ui*external_app*rf_assistant*);
+    } > ram_external_app_rf_assistant
+
     .external_app_afsk_rx : ALIGN(4) SUBALIGN(4)
     {
         KEEP(*(.external_app.app_afsk_rx.application_information));
@@ -416,15 +464,6 @@ SECTIONS
         *(*ui*external_app*debug_pmem*);
     } > ram_external_app_debug_pmem
 
-    /* amfm_scanner must be matched BEFORE scanner, because the pattern
-       *(*ui*external_app*scanner*) would otherwise claim amfm_scanner's
-       symbols (substring match), overflowing the scanner section. */
-    .external_app_amfm_scanner : ALIGN(4) SUBALIGN(4)
-    {
-        KEEP(*(.external_app.app_amfm_scanner.application_information));
-        *(*ui*external_app*amfm_scanner*);
-    } > ram_external_app_amfm_scanner
-
     .external_app_scanner : ALIGN(4) SUBALIGN(4)
     {
         KEEP(*(.external_app.app_scanner.application_information));
@@ -658,40 +697,4 @@ SECTIONS
         KEEP(*(.external_app.app_hw_test.application_information));
         *(*ui*external_app*hw_test*);
     } > ram_external_app_hw_test
-
-    .external_app_sigfinder : ALIGN(4) SUBALIGN(4)
-    {
-        KEEP(*(.external_app.app_sigfinder.application_information));
-        *(*ui*external_app*sigfinder*);
-    } > ram_external_app_sigfinder
-
-    .external_app_range_est : ALIGN(4) SUBALIGN(4)
-    {
-        KEEP(*(.external_app.app_range_est.application_information));
-        *(*ui*external_app*range_est*);
-    } > ram_external_app_range_est
-
-    .external_app_freq_watch : ALIGN(4) SUBALIGN(4)
-    {
-        KEEP(*(.external_app.app_freq_watch.application_information));
-        *(*ui*external_app*freq_watch*);
-    } > ram_external_app_freq_watch
-
-    .external_app_mod_ident : ALIGN(4) SUBALIGN(4)
-    {
-        KEEP(*(.external_app.app_mod_ident.application_information));
-        *(*ui*external_app*mod_ident*);
-    } > ram_external_app_mod_ident
-
-    .external_app_tpms_counter : ALIGN(4) SUBALIGN(4)
-    {
-        KEEP(*(.external_app.app_tpms_counter.application_information));
-        *(*ui*external_app*tpms_counter*);
-    } > ram_external_app_tpms_counter
-
-    .external_app_rf_assistant : ALIGN(4) SUBALIGN(4)
-    {
-        KEEP(*(.external_app.app_rf_assistant.application_information));
-        *(*ui*external_app*rf_assistant*);
-    } > ram_external_app_rf_assistant
 }
