@@ -693,5 +693,13 @@ SECTIONS
     {
         KEEP(*(.external_app.app_rf_assistant.application_information));
         *(*ui*external_app*rf_assistant*);
+        /* rf_assistant has ~26KB of string literals for its offline help
+           database. The compiler places them in generic .rodata.str1.*
+           sections whose names don't contain the app namespace, so without
+           this they leak into main firmware .rodata and overflow the HackRF
+           1MB flash. Pull them in by matching the input .o filename.
+           Sections already claimed by the name-based pattern above are not
+           re-matched here; only leftover anonymous .rodata lands here. */
+        *rf_assistant*(.rodata .rodata.* .ARM.exidx.*)
     } > ram_external_app_rf_assistant
 }
