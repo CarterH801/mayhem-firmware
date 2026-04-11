@@ -49,6 +49,7 @@ RangeEstView::RangeEstView(NavigationView& nav,
 // ─────────────────────────────────────────
 RangeEstView::~RangeEstView() {
     receiver_model.disable();
+    baseband::shutdown();
 }
 
 void RangeEstView::focus() {
@@ -102,19 +103,24 @@ void RangeEstView::init(rf::Frequency freq,
     tx_power_dbm_ = DEVICE_PRESETS[0].tx_power;
     field_txpower.set_value(tx_power_dbm_);
 
-    // Tune radio
-    receiver_model.set_target_frequency(target_freq_);
+    // Load matching baseband image and set modulation for frequency
     if (target_freq_ >= 87'500'000 &&
         target_freq_ <= 108'000'000) {
+        baseband::run_image(portapack::spi_flash::image_tag_wfm_audio);
         receiver_model.set_modulation(
             ReceiverModel::Mode::WidebandFMAudio);
     } else if (target_freq_ < 30'000'000) {
+        baseband::run_image(portapack::spi_flash::image_tag_am_audio);
         receiver_model.set_modulation(
             ReceiverModel::Mode::AMAudio);
     } else {
+        baseband::run_image(portapack::spi_flash::image_tag_nfm_audio);
         receiver_model.set_modulation(
             ReceiverModel::Mode::NarrowbandFMAudio);
     }
+
+    // Tune radio
+    receiver_model.set_target_frequency(target_freq_);
     receiver_model.set_sampling_rate(3072000);
     receiver_model.set_baseband_bandwidth(1750000);
     receiver_model.enable();

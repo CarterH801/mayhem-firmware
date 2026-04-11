@@ -27,6 +27,7 @@ ModIdentView::ModIdentView(NavigationView& nav,
 
 ModIdentView::~ModIdentView() {
     receiver_model.disable();
+    baseband::shutdown();
 }
 
 void ModIdentView::focus() {
@@ -67,6 +68,7 @@ void ModIdentView::init(rf::Frequency freq,
         text_device.set("");
         bar_progress.set_value(0);
 
+        baseband::run_image(portapack::spi_flash::image_tag_nfm_audio);
         receiver_model.set_target_frequency(target_freq_);
         receiver_model.set_modulation(
             ReceiverModel::Mode::NarrowbandFMAudio);

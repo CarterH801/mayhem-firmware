@@ -86,6 +86,7 @@ AMFMScannerView::AMFMScannerView(NavigationView& nav)
 
 AMFMScannerView::~AMFMScannerView() {
     stop_scan();
+    baseband::shutdown();
 }
 
 void AMFMScannerView::focus() {
@@ -167,17 +168,20 @@ void AMFMScannerView::set_modulation_for_band() {
     if (current_freq_ >= 87'500'000 &&
         current_freq_ <= 108'000'000) {
         // FM broadcast
+        baseband::run_image(portapack::spi_flash::image_tag_wfm_audio);
         receiver_model.set_modulation(
             ReceiverModel::Mode::WidebandFMAudio);
         receiver_model.set_nbfm_configuration(2);
     } else if (current_freq_ < 30'000'000) {
         // AM
+        baseband::run_image(portapack::spi_flash::image_tag_am_audio);
         receiver_model.set_modulation(
             ReceiverModel::Mode::AMAudio);
         receiver_model.set_am_configuration(0);
     } else {
         // Everything else: NFM
         // (key fobs, drones, VHF, UHF)
+        baseband::run_image(portapack::spi_flash::image_tag_nfm_audio);
         receiver_model.set_modulation(
             ReceiverModel::Mode::NarrowbandFMAudio);
         receiver_model.set_nbfm_configuration(0);

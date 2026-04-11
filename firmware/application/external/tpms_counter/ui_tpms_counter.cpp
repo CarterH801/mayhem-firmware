@@ -88,6 +88,7 @@ TPMSCounterView::TPMSCounterView(NavigationView& nav)
 
 TPMSCounterView::~TPMSCounterView() {
     stop_watch();
+    baseband::shutdown();
 }
 
 void TPMSCounterView::focus() {
@@ -103,8 +104,9 @@ void TPMSCounterView::start_watch() {
     const uint64_t freq =
         band_mode_ == 0 ? TPMS_US_FREQ : TPMS_EU_FREQ;
 
-    receiver_model.set_target_frequency(freq);
     // TPMS uses OOK — AM demodulation
+    baseband::run_image(portapack::spi_flash::image_tag_am_audio);
+    receiver_model.set_target_frequency(freq);
     receiver_model.set_modulation(
         ReceiverModel::Mode::AMAudio);
     receiver_model.set_sampling_rate(500000);
