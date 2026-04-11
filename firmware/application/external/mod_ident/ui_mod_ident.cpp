@@ -8,6 +8,7 @@
 #include "receiver_model.hpp"
 #include "baseband_api.hpp"
 #include "string_format.hpp"
+#include "audio.hpp"
 #include <cmath>
 
 using namespace portapack;
@@ -69,14 +70,19 @@ void ModIdentView::init(rf::Frequency freq,
         text_device.set("");
         bar_progress.set_value(0);
 
-        // shutdown() first: run_image() panics if a baseband is already running.
+        // Full baseband-switch sequence matching fmradio / detector_rx pattern.
+        audio::output::stop();
+        receiver_model.disable();
         baseband::shutdown();
+
         baseband::run_image(portapack::spi_flash::image_tag_nfm_audio);
         receiver_model.set_target_frequency(target_freq_);
         receiver_model.set_modulation(
             ReceiverModel::Mode::NarrowbandFMAudio);
         receiver_model.set_sampling_rate(3072000);
         receiver_model.set_baseband_bandwidth(1750000);
+        audio::set_rate(audio::Rate::Hz_24000);
+        audio::output::start();
         receiver_model.enable();
     };
 

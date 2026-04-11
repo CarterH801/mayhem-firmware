@@ -9,6 +9,7 @@
 #include "portapack.hpp"
 #include "receiver_model.hpp"
 #include "baseband_api.hpp"
+#include "audio.hpp"
 #include "string_format.hpp"
 #include "audio.hpp"
 #include "tone_key.hpp"
@@ -86,10 +87,14 @@ void SigFinderView::init(rf::Frequency freq,
     text_band.set_style(
         ui::Theme::getInstance()->fg_light);
 
-    // Load matching baseband image and set modulation for frequency.
-    // shutdown() first is required: run_image() panics if a baseband is
-    // already running. shutdown() is a no-op if nothing is loaded.
+    // Full baseband-switch sequence matching fmradio / detector_rx pattern.
+    // The audio::output::stop and receiver_model.disable calls before
+    // baseband::shutdown are required — skipping them leaves ChibiOS state
+    // inconsistent and the next run_image's sleep loop hardfaults.
+    audio::output::stop();
+    receiver_model.disable();
     baseband::shutdown();
+
     if (target_freq_ >= 87'500'000 && target_freq_ <= 108'000'000) {
         baseband::run_image(portapack::spi_flash::image_tag_wfm_audio);
         receiver_model.set_modulation(ReceiverModel::Mode::WidebandFMAudio);
@@ -105,6 +110,8 @@ void SigFinderView::init(rf::Frequency freq,
     receiver_model.set_target_frequency(target_freq_);
     receiver_model.set_sampling_rate(3072000);
     receiver_model.set_baseband_bandwidth(1750000);
+    audio::set_rate(audio::Rate::Hz_24000);
+    audio::output::start();
     receiver_model.enable();
 
     // ── Button handlers ───────────────────────────────────
@@ -402,6 +409,8 @@ void SigFinderView::start_capture() {
 
     // Switch baseband to capture mode at 500kHz BW
     // (recommended for SD card write speed compatibility)
+    audio::output::stop();
+    receiver_model.disable();
     baseband::shutdown();
     baseband::run_image(portapack::spi_flash::image_tag_capture);
     receiver_model.set_sampling_rate(500000);
