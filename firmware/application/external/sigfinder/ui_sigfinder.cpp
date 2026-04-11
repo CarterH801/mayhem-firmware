@@ -86,7 +86,10 @@ void SigFinderView::init(rf::Frequency freq,
     text_band.set_style(
         ui::Theme::getInstance()->fg_light);
 
-    // Load matching baseband image and set modulation for frequency
+    // Load matching baseband image and set modulation for frequency.
+    // shutdown() first is required: run_image() panics if a baseband is
+    // already running. shutdown() is a no-op if nothing is loaded.
+    baseband::shutdown();
     if (target_freq_ >= 87'500'000 && target_freq_ <= 108'000'000) {
         baseband::run_image(portapack::spi_flash::image_tag_wfm_audio);
         receiver_model.set_modulation(ReceiverModel::Mode::WidebandFMAudio);
@@ -399,6 +402,7 @@ void SigFinderView::start_capture() {
 
     // Switch baseband to capture mode at 500kHz BW
     // (recommended for SD card write speed compatibility)
+    baseband::shutdown();
     baseband::run_image(portapack::spi_flash::image_tag_capture);
     receiver_model.set_sampling_rate(500000);
     receiver_model.set_baseband_bandwidth(500000);

@@ -104,7 +104,9 @@ void TPMSCounterView::start_watch() {
     const uint64_t freq =
         band_mode_ == 0 ? TPMS_US_FREQ : TPMS_EU_FREQ;
 
-    // TPMS uses OOK — AM demodulation
+    // TPMS uses OOK — AM demodulation.
+    // shutdown() first: run_image() panics if a baseband is already running.
+    baseband::shutdown();
     baseband::run_image(portapack::spi_flash::image_tag_am_audio);
     receiver_model.set_target_frequency(freq);
     receiver_model.set_modulation(

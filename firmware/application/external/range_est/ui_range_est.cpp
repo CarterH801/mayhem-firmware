@@ -103,7 +103,10 @@ void RangeEstView::init(rf::Frequency freq,
     tx_power_dbm_ = DEVICE_PRESETS[0].tx_power;
     field_txpower.set_value(tx_power_dbm_);
 
-    // Load matching baseband image and set modulation for frequency
+    // Load matching baseband image and set modulation for frequency.
+    // shutdown() first is required: run_image() panics if a baseband is
+    // already running. shutdown() is a no-op if nothing is loaded.
+    baseband::shutdown();
     if (target_freq_ >= 87'500'000 &&
         target_freq_ <= 108'000'000) {
         baseband::run_image(portapack::spi_flash::image_tag_wfm_audio);

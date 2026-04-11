@@ -172,6 +172,10 @@ void AMFMScannerView::stop_scan() {
 // Set modulation for current frequency
 // ─────────────────────────────────────────
 void AMFMScannerView::set_modulation_for_band() {
+    // baseband::run_image() panics with "BBRunning" if an image is already
+    // loaded, so always shut down first. shutdown() is a no-op when nothing
+    // is running, so it's safe to call unconditionally.
+    baseband::shutdown();
     if (current_freq_ >= 87'500'000 &&
         current_freq_ <= 108'000'000) {
         // FM broadcast

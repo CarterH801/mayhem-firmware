@@ -160,7 +160,9 @@ void FreqWatchView::start_watch() {
     button_watch.set_style(ui::Theme::getInstance()->fg_light);
     text_status.set("Watching...");
 
-    // Load baseband image and set up receiver
+    // Load baseband image and set up receiver.
+    // shutdown() first: run_image() panics if a baseband is already running.
+    baseband::shutdown();
     baseband::run_image(portapack::spi_flash::image_tag_nfm_audio);
     receiver_model.set_modulation(
         ReceiverModel::Mode::NarrowbandFMAudio);
