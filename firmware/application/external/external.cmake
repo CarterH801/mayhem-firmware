@@ -1,12 +1,4 @@
 set(EXTCPPSRC
-	#afsk_rx   16 byte
-	external/afsk_rx/main.cpp
-	external/afsk_rx/ui_afsk_rx.cpp
-
-	#calculator  632 bytes
-	external/calculator/main.cpp
-	external/calculator/ui_calculator.cpp
-
 	#font_viewer 8 byte?!
 	external/font_viewer/main.cpp
 	external/font_viewer/ui_font_viewer.cpp
@@ -14,15 +6,6 @@ set(EXTCPPSRC
 	#blespam 336 bytes - array initializers?
 	external/blespam/main.cpp
 	external/blespam/ui_blespam.cpp
-
-	#analogtv 552 bytes 
-	external/analogtv/main.cpp
-	external/analogtv/analog_tv_app.cpp
-	external/analogtv/ui_tv.cpp
-
-	#nrf_rx  40 byte
-	external/nrf_rx/main.cpp
-	external/nrf_rx/ui_nrf_rx.cpp
 
 	#coasterp  0 byte
 	external/coasterp/main.cpp
@@ -56,20 +39,11 @@ set(EXTCPPSRC
 	external/keyfob/ui_keyfob.cpp
 	external/keyfob/ui_keyfob.hpp
 
-	#tetris 88 byte
-	external/tetris/main.cpp
-	external/tetris/ui_tetris.cpp
-
 
 	#extsensors 192 byte
 	external/extsensors/main.cpp
 	external/extsensors/ui_extsensors.cpp
 	external/extsensors/ui_extsensors.hpp
-
-	#foxhunt 0
-	external/foxhunt/main.cpp
-	external/foxhunt/ui_foxhunt_rx.cpp
-	external/foxhunt/ui_foxhunt_rx.hpp
 
 	#audio_test 192 byte
 	external/audio_test/main.cpp
@@ -110,10 +84,6 @@ set(EXTCPPSRC
 	#mdc_tx
 	external/mdc_tx/main.cpp
 	external/mdc_tx/ui_mdc_tx.cpp
-
-	#sstvrx
-	external/sstvrx/main.cpp
-	external/sstvrx/ui_sstvrx.cpp
 
 	#random 464  bytes.
 	external/random_password/main.cpp
@@ -170,10 +140,6 @@ set(EXTCPPSRC
 	external/tuner/main.cpp
 	external/tuner/ui_tuner.cpp
 
-	#metronome 696 bytes
-	external/metronome/main.cpp
-	external/metronome/ui_metronome.cpp
-
 	#app_manager 40 bytes
 	external/app_manager/main.cpp
 	external/app_manager/ui_app_manager.cpp
@@ -199,27 +165,6 @@ set(EXTCPPSRC
 	external/playlist_editor/main.cpp
 	external/playlist_editor/ui_playlist_editor.cpp
 
-	#snake 240 bytes
-	external/snake/main.cpp
-	external/snake/ui_snake.cpp
-
-
-	#stopwatch 0
-	external/stopwatch/main.cpp
-	external/stopwatch/ui_stopwatch.cpp
-
-	#breakout 1144 bytes
-	external/breakout/main.cpp
-	external/breakout/ui_breakout.cpp
-
-	#dinogame 0 
-	external/dinogame/main.cpp
-	external/dinogame/ui_dinogame.cpp
-
-	#doom 224
-	external/doom/main.cpp
-	external/doom/ui_doom.cpp
-
 	#debug_pmem  944 byte
 	external/debug_pmem/main.cpp
 	external/debug_pmem/ui_debug_pmem.cpp
@@ -232,10 +177,6 @@ set(EXTCPPSRC
 	external/level/main.cpp
 	external/level/ui_level.cpp
 
-	#gfxEQ 80 byte
-	external/gfxeq/main.cpp
-	external/gfxeq/ui_gfxeq.cpp	
-
 	#waterfall designer
 	external/waterfall_designer/main.cpp
 	external/waterfall_designer/ui_waterfall_designer.cpp
@@ -244,23 +185,11 @@ set(EXTCPPSRC
 	external/detector_rx/main.cpp
 	external/detector_rx/ui_detector_rx.cpp
 
-	#space_invaders  0 byte
-	external/spaceinv/main.cpp
-	external/spaceinv/ui_spaceinv.cpp
-
-	#blackjack 24 byte
-	external/blackjack/main.cpp
-	external/blackjack/ui_blackjack.cpp
-
-	#battleship  256 byte
-	external/battleship/main.cpp
-	external/battleship/ui_battleship.cpp
-
 	#ert 3040 bytes - has common with baseband, could be renamed the namespace, so both could have it, but not kept in fw.
 	external/ert/main.cpp
 	external/ert/ert_app.cpp
 
-	#epirb_rx 168 byte flash 
+	#epirb_rx 168 byte flash
 	external/epirb_rx/main.cpp
 	external/epirb_rx/ui_epirb_rx.cpp
 
@@ -272,10 +201,6 @@ set(EXTCPPSRC
 	external/soundboard/main.cpp
 	external/soundboard/soundboard_app.cpp
 
-	#game2048   - 168 byte flash
-	external/game2048/main.cpp
-	external/game2048/ui_game2048.cpp
-
 	#bht_tx - 3920 byte flash, unknown
 	external/bht_tx/main.cpp
 	external/bht_tx/ui_bht_tx.cpp
@@ -285,13 +210,13 @@ set(EXTCPPSRC
 	external/morse_practice/main.cpp
 	external/morse_practice/ui_morse_practice.cpp
 
-	#adult_toys_controller  144 bytes 
+	#adult_toys_controller  144 bytes
 	external/adult_toys_controller/main.cpp
 	external/adult_toys_controller/ui_adult_toys_controller.cpp
 
 	#flex_rx
 	external/flex_rx/main.cpp
-	external/flex_rx/ui_flex_rx.cpp	
+	external/flex_rx/ui_flex_rx.cpp
 
 	#subcarrx
 	external/subcarrx/main.cpp
@@ -311,15 +236,6 @@ set(EXTCPPSRC
 
   	external/keeloqtx/main.cpp
   	external/keeloqtx/ui_keeloqtx.cpp
-	#rtty_rx
-	external/rtty_rx/main.cpp
-	external/rtty_rx/ui_rtty_rx.cpp
-	external/rtty_rx/baudot.cpp
-
-	#rtty_tx
-	external/rtty_tx/main.cpp
-	external/rtty_tx/ui_rtty_tx.cpp
-	external/rtty_tx/baudot.cpp
 
     #pocsag_tx
 	external/pocsag_tx/main.cpp
@@ -344,12 +260,8 @@ set(EXTCPPSRC
 )
 
 set(EXTAPPLIST
-	afsk_rx
-	calculator
 	font_viewer
 	blespam
-	analogtv
-	nrf_rx
 	coasterp
 	lge
 	lcr
@@ -357,9 +269,7 @@ set(EXTAPPLIST
 	gpssim
 	spainter
 	keyfob
-	tetris
 	extsensors
-	foxhunt_rx
 	audio_test
 	wardrivemap
 	tpmsrx
@@ -370,7 +280,6 @@ set(EXTAPPLIST
 	sstvtx
 	same_tx
 	mdc_tx
-	sstvrx
 	random_password
 	acars_rx
 	wefax_rx
@@ -384,33 +293,22 @@ set(EXTAPPLIST
 	mcu_temperature
 	fmradio
 	tuner
-	metronome
 	app_manager
 	hopper
 	antenna_length
 	view_wav
 	sd_wipe
 	playlist_editor
-	snake
-	stopwatch
-	breakout
-	dinogame
-	doom
 	debug_pmem
 	scanner
 	level
-	gfxeq
 	waterfall_designer
 	detector_rx
 	fpv_detect
-	spaceinv
-	blackjack
-	battleship
 	ert
 	epirb_rx
 	epirb_tx
 	soundboard
-	game2048
 	bht_tx
 	morse_practice
 	adult_toys_controller
@@ -420,8 +318,6 @@ set(EXTAPPLIST
 	morse_radio
 	morseradiotx
 	keeloqtx
-	rtty_rx
-	rtty_tx
 	pocsag_tx
 	time_sink
 	kiss_tnc
@@ -437,7 +333,7 @@ if(NOT BOARD STREQUAL "PRALINE")
        list(APPEND EXTAPPLIST sdusb)
 endif()
 
-# 6 custom apps — compiled natively for every target (including HackRF) so
+# 7 custom apps — compiled natively for every target (including HackRF) so
 # their .ppma files contain addresses matching the firmware they ship with.
 # Cross-copying .ppma files between different firmware builds does not work
 # because external apps reference main firmware functions via absolute
@@ -455,18 +351,14 @@ list(APPEND EXTCPPSRC
        external/mod_ident/ui_mod_ident.cpp
        external/tpms_counter/main.cpp
        external/tpms_counter/ui_tpms_counter.cpp
+       external/rf_assistant/main.cpp
+       external/rf_assistant/ui_rf_assistant.cpp
 )
-list(APPEND EXTAPPLIST amfm_scanner sigfinder range_est freq_watch mod_ident tpms_counter)
+list(APPEND EXTAPPLIST amfm_scanner sigfinder range_est freq_watch mod_ident tpms_counter rf_assistant)
 
-# rf_assistant has ~26KB of string-literal help text that the compiler places
-# in .rodata.str1.* sections. Those section names don't contain the app
-# namespace, so they fall through to main firmware .rodata and overflow the
-# HackRF 1MB flash limit. Gate it behind larger-flash targets for now.
-# signal_map / noaa_sat / sat_pass / waterfall_rec / hw_test stay gated too.
+# Still gated behind larger flash — not yet tested on HackRF.
 if(FLASH_MB_LIMIT_SIZE GREATER 1)
        list(APPEND EXTCPPSRC
-               external/rf_assistant/main.cpp
-               external/rf_assistant/ui_rf_assistant.cpp
                external/signal_map/main.cpp
                external/signal_map/ui_signal_map.cpp
                external/noaa_sat/main.cpp
@@ -478,6 +370,6 @@ if(FLASH_MB_LIMIT_SIZE GREATER 1)
                external/hw_test/main.cpp
                external/hw_test/ui_hw_test.cpp
        )
-       list(APPEND EXTAPPLIST rf_assistant signal_map noaa_sat sat_pass waterfall_rec hw_test)
+       list(APPEND EXTAPPLIST signal_map noaa_sat sat_pass waterfall_rec hw_test)
 endif()
 
