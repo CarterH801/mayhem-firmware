@@ -31,7 +31,9 @@
 #include <string>
 #include <deque>
 
-namespace ui {
+using namespace ui;
+
+namespace ui::external_app::sigfinder {
 
 class SigFinderView : public View {
    public:
@@ -205,6 +207,6 @@ class SigFinderView : public View {
         }};
 };
 
-}  // namespace ui
+}  // namespace ui::external_app::sigfinder
 
 #endif /*__UI_SIGFINDER_H__*/

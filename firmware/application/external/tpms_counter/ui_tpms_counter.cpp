@@ -20,7 +20,7 @@
 
 using namespace portapack;
 
-namespace ui {
+namespace ui::external_app::tpms_counter {
 
 TPMSCounterView::TPMSCounterView(NavigationView& nav)
     : nav_(nav) {
@@ -263,4 +263,4 @@ std::string TPMSCounterView::tire_name(
     }
 }
 
-}  // namespace ui
+}  // namespace ui::external_app::tpms_counter

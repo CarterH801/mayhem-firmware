@@ -27,7 +27,9 @@
 #include <string>
 #include <cmath>
 
-namespace ui {
+using namespace ui;
+
+namespace ui::external_app::range_est {
 
 // ─────────────────────────────────────────────────────────
 // Known device types with typical TX power in dBm
@@ -256,6 +258,6 @@ class RangeEstView : public View {
         }};
 };
 
-}  // namespace ui
+}  // namespace ui::external_app::range_est
 
 #endif /*__UI_RANGE_EST_H__*/

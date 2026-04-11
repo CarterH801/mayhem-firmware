@@ -24,7 +24,9 @@
 #include <vector>
 #include <string>
 
-namespace ui {
+using namespace ui;
+
+namespace ui::external_app::amfm_scanner {
 
 // ─────────────────────────────────────────────────────────
 // Color map for band categories
@@ -202,6 +204,6 @@ class AMFMScannerView : public View {
         }};
 };
 
-}  // namespace ui
+}  // namespace ui::external_app::amfm_scanner
 
 #endif /*__UI_AMFM_SCANNER_H__*/

@@ -32,7 +32,9 @@
 #include <string>
 #include <cstdint>
 
-namespace ui {
+using namespace ui;
+
+namespace ui::external_app::freq_watch {
 
 // ─────────────────────────────────────────────────────────
 // One watched frequency entry
@@ -177,6 +179,6 @@ class FreqWatchView : public View {
         }};
 };
 
-}  // namespace ui
+}  // namespace ui::external_app::freq_watch
 
 #endif /*__UI_FREQ_WATCH_H__*/

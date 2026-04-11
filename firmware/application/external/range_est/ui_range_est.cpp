@@ -24,7 +24,7 @@
 
 using namespace portapack;
 
-namespace ui {
+namespace ui::external_app::range_est {
 
 // ─────────────────────────────────────────
 // Standalone constructor
@@ -409,4 +409,4 @@ std::string RangeEstView::format_freq(
     }
 }
 
-}  // namespace ui
+}  // namespace ui::external_app::range_est

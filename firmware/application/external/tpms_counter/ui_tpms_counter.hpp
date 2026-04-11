@@ -37,7 +37,9 @@
 #include <string>
 #include <cstdint>
 
-namespace ui {
+using namespace ui;
+
+namespace ui::external_app::tpms_counter {
 
 // ─────────────────────────────────────────────────────────
 // One detected vehicle's TPMS data
@@ -161,6 +163,6 @@ class TPMSCounterView : public View {
         }};
 };
 
-}  // namespace ui
+}  // namespace ui::external_app::tpms_counter
 
 #endif /*__UI_TPMS_COUNTER_H__*/

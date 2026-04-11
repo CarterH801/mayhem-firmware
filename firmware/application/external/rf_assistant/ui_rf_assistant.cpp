@@ -11,7 +11,7 @@
 #include "ui_bandplan.hpp"
 #include <cstring>
 
-namespace ui {
+namespace ui::external_app::rf_assistant {
 
 // ═════════════════════════════════════════════════════════
 //  DATABASE 1 — MAYHEM ERROR CODES
@@ -1372,4 +1372,4 @@ void RFAssistantView::wrap_text(
         lines.push_back(current_line);
 }
 
-}  // namespace ui
+}  // namespace ui::external_app::rf_assistant

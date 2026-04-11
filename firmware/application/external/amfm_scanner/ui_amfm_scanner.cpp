@@ -14,7 +14,7 @@
 
 using namespace portapack;
 
-namespace ui {
+namespace ui::external_app::amfm_scanner {
 
 // ─────────────────────────────────────────
 // Constructor
@@ -461,4 +461,4 @@ void AMFMScannerView::update_status_text() {
     }
 }
 
-}  // namespace ui
+}  // namespace ui::external_app::amfm_scanner

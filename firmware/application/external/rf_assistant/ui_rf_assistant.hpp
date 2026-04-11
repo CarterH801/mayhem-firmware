@@ -39,7 +39,9 @@
 #include <vector>
 #include <cstdint>
 
-namespace ui {
+using namespace ui;
+
+namespace ui::external_app::rf_assistant {
 
 // ─────────────────────────────────────────────────────────
 // Generic key/value lookup entry
@@ -232,6 +234,6 @@ class RFAssistantView : public View {
         {19 * 8, 230, 5 * 8, 16}, "HOME"};
 };
 
-}  // namespace ui
+}  // namespace ui::external_app::rf_assistant
 
 #endif /*__UI_RF_ASSISTANT_H__*/

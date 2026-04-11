@@ -12,7 +12,7 @@
 
 using namespace portapack;
 
-namespace ui {
+namespace ui::external_app::freq_watch {
 
 FreqWatchView::FreqWatchView(NavigationView& nav)
     : nav_(nav) {
@@ -404,4 +404,4 @@ std::string FreqWatchView::format_freq(
     return to_string_dec_uint(f / 1000) + "k";
 }
 
-}  // namespace ui
+}  // namespace ui::external_app::freq_watch

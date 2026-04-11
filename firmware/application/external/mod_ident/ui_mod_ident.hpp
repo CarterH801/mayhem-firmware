@@ -27,7 +27,9 @@
 #include <cstdint>
 #include <cmath>
 
-namespace ui {
+using namespace ui;
+
+namespace ui::external_app::mod_ident {
 
 // ─────────────────────────────────────────────────────────
 // Modulation analysis result
@@ -149,6 +151,6 @@ class ModIdentView : public View {
         }};
 };
 
-}  // namespace ui
+}  // namespace ui::external_app::mod_ident
 
 #endif /*__UI_MOD_IDENT_H__*/

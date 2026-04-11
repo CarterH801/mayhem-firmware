@@ -11,7 +11,7 @@
 
 using namespace portapack;
 
-namespace ui {
+namespace ui::external_app::mod_ident {
 
 ModIdentView::ModIdentView(NavigationView& nav)
     : nav_(nav) {
@@ -335,4 +335,4 @@ std::string ModIdentView::format_freq(
     return to_string_dec_uint(f / 1000) + " kHz";
 }
 
-}  // namespace ui
+}  // namespace ui::external_app::mod_ident

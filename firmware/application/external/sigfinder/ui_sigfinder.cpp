@@ -17,7 +17,7 @@
 
 using namespace portapack;
 
-namespace ui {
+namespace ui::external_app::sigfinder {
 
 // ─────────────────────────────────────────
 // Standalone constructor
@@ -500,4 +500,4 @@ int32_t SigFinderView::rssi_to_percent(int32_t rssi) const {
     return ((rssi - low) * 100) / (high - low);
 }
 
-}  // namespace ui
+}  // namespace ui::external_app::sigfinder
