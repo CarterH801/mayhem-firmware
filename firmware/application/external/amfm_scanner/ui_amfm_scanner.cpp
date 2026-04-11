@@ -11,7 +11,6 @@
 #include "baseband_api.hpp"
 #include "string_format.hpp"
 #include "ui_bandplan.hpp"
-#include "audio.hpp"
 
 using namespace portapack;
 
@@ -173,11 +172,7 @@ void AMFMScannerView::stop_scan() {
 // Set modulation for current frequency
 // ─────────────────────────────────────────
 void AMFMScannerView::set_modulation_for_band() {
-    // Full baseband-switch sequence matching fmradio / detector_rx pattern.
-    // The audio::output::stop and receiver_model.disable calls before
-    // baseband::shutdown are required — skipping them leaves ChibiOS state
-    // inconsistent and the next run_image's sleep loop hardfaults.
-    audio::output::stop();
+    // Minimal baseband switch — disable/shutdown first so run_image is safe.
     receiver_model.disable();
     baseband::shutdown();
 
@@ -204,8 +199,6 @@ void AMFMScannerView::set_modulation_for_band() {
     }
     receiver_model.set_sampling_rate(3072000);
     receiver_model.set_baseband_bandwidth(1750000);
-    audio::set_rate(audio::Rate::Hz_24000);
-    audio::output::start();
     receiver_model.enable();
 }
 

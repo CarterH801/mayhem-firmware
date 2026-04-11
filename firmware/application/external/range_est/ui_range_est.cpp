@@ -20,7 +20,6 @@
 #include "baseband_api.hpp"
 #include "string_format.hpp"
 #include "ui_bandplan.hpp"
-#include "audio.hpp"
 #include <cmath>
 
 using namespace portapack;
@@ -104,11 +103,7 @@ void RangeEstView::init(rf::Frequency freq,
     tx_power_dbm_ = DEVICE_PRESETS[0].tx_power;
     field_txpower.set_value(tx_power_dbm_);
 
-    // Full baseband-switch sequence matching fmradio / detector_rx pattern.
-    // The audio::output::stop and receiver_model.disable calls before
-    // baseband::shutdown are required — skipping them leaves ChibiOS state
-    // inconsistent and the next run_image's sleep loop hardfaults.
-    audio::output::stop();
+    // Minimal baseband switch — disable/shutdown first so run_image is safe.
     receiver_model.disable();
     baseband::shutdown();
 
@@ -131,8 +126,6 @@ void RangeEstView::init(rf::Frequency freq,
     receiver_model.set_target_frequency(target_freq_);
     receiver_model.set_sampling_rate(3072000);
     receiver_model.set_baseband_bandwidth(1750000);
-    audio::set_rate(audio::Rate::Hz_24000);
-    audio::output::start();
     receiver_model.enable();
 
     // ── Button / field handlers ───────────────────────────

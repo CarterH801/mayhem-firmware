@@ -17,7 +17,6 @@
 #include "string_format.hpp"
 #include "rtc_time.hpp"
 #include "baseband_api.hpp"
-#include "audio.hpp"
 
 using namespace portapack;
 
@@ -105,12 +104,8 @@ void TPMSCounterView::start_watch() {
     const uint64_t freq =
         band_mode_ == 0 ? TPMS_US_FREQ : TPMS_EU_FREQ;
 
-    // Full baseband-switch sequence matching fmradio / detector_rx pattern.
-    // Skipping any of these steps (especially audio::output::stop and
-    // receiver_model.disable) leaves ChibiOS scheduler state inconsistent
-    // and causes hardfaults inside chThdSleepMilliseconds during run_image's
-    // baseband_ready wait loop.
-    audio::output::stop();
+    // Minimal baseband switch — no audio calls (TPMS doesn't play audio),
+    // disable/shutdown first to guarantee M4 is stopped before run_image.
     receiver_model.disable();
     baseband::shutdown();
 
@@ -120,8 +115,6 @@ void TPMSCounterView::start_watch() {
         ReceiverModel::Mode::AMAudio);
     receiver_model.set_sampling_rate(500000);
     receiver_model.set_baseband_bandwidth(500000);
-    audio::set_rate(audio::Rate::Hz_24000);
-    audio::output::start();
     receiver_model.enable();
 }
 

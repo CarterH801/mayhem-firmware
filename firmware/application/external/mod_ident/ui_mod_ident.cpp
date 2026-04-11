@@ -8,7 +8,6 @@
 #include "receiver_model.hpp"
 #include "baseband_api.hpp"
 #include "string_format.hpp"
-#include "audio.hpp"
 #include <cmath>
 
 using namespace portapack;
@@ -70,8 +69,7 @@ void ModIdentView::init(rf::Frequency freq,
         text_device.set("");
         bar_progress.set_value(0);
 
-        // Full baseband-switch sequence matching fmradio / detector_rx pattern.
-        audio::output::stop();
+        // Minimal baseband switch — disable/shutdown first so run_image is safe.
         receiver_model.disable();
         baseband::shutdown();
 
@@ -81,8 +79,6 @@ void ModIdentView::init(rf::Frequency freq,
             ReceiverModel::Mode::NarrowbandFMAudio);
         receiver_model.set_sampling_rate(3072000);
         receiver_model.set_baseband_bandwidth(1750000);
-        audio::set_rate(audio::Rate::Hz_24000);
-        audio::output::start();
         receiver_model.enable();
     };
 
